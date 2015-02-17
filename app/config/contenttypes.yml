@@ -12,7 +12,35 @@ speeltijden:
         slug:
             type: slug
             uses: title
-
+        starttijd:
+            type: datetime
+            variant: inline
+            label: Speeldag en starttijd
+            postfix: AM is voor de middag, PM is na de middag
+        lengte:
+            type: integer
+            variant: inline
+            label: Speelduur
+            postfix: "Lengte van het optreden / performance. In minuten, dus '2 uur' is '120'."
+        programma: 
+            type: select
+            label: Programma
+            postfix: "Bij welke editie van GWO of HCTS hoort dit?"
+            values: programmas/title
+            keys: slug
+        speellokatie:
+            type: select
+            label: Locatie
+            values: 
+              '': '-'
+              bolderzaal: "De Bolder zaal"
+              boldercafe: "De Bolder café"
+              bospodium: "Naar Buiten"
+              '-': '-'
+              podiumvlieland: "Podium Vlieland"
+              sportveld: "Sportveld"
+              vuurboetsduin: "Vuurboetsduin"
+              fortweg: "Fortweg"            
 
 
 programma:
@@ -85,6 +113,7 @@ programmaonderdelen:
             variant: inline
             label: oude video
             postfix: LET OP! Als hier een link instaat, plak deze dan met de hand naar 'Plak Vimeo of Youtube url', hierboven.
+            group: "Oude meuk"
         starttijd:
             prefix: "<hr>"
             type: datetime
