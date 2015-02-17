@@ -1,0 +1,201 @@
+
+
+
+speeltijden:
+    name: Speeltijden
+    singular_name: Speeltijd
+    fields: 
+        title:
+            type: text
+            class: large
+            group: content
+        slug:
+            type: slug
+            uses: title
+
+
+
+programma:
+    name: Programmas
+    singular_name: Programma
+    fields:
+        title:
+            type: text
+            class: large
+        slug:
+            type: slug
+            uses: title
+        image:
+            type: image
+        teaser:
+            type: html
+            height: 150px
+        body:
+            type: html
+            height: 300px
+    record_template: pagina_programma.twig
+    listing_template: listing_programmas.twig
+    taxonomy: [ chapters ]
+    sort: title
+    recordsperpage: 100
+
+programmaonderdelen:
+    name: Programmaonderdelen
+    singular_name: Programmaonderdeel
+    fields:
+        name:
+            type: text
+            class: large
+        slug:
+            type: slug
+            uses: name
+        description:
+            type: html
+            height: 150px
+            label: Bandtekstje
+        image:
+            type: image
+            label: Afbeelding
+        showphotographer:
+            type: text
+            variant: inline
+            label: Credit fotograaf
+        url:
+            type: text
+            variant: inline
+            label: website artiest of project
+        spotify_link:
+            type: text
+            variant: inline
+            label: Spotify url (http link)
+        embed:
+            type: text
+            class: narrow
+            label: Ruimte voor een embedcode (bijv. Soundcloud)
+        video:
+            prefix: "<hr>"
+            type: video
+            label: Plak Vimeo of Youtube url (geen embedcode dus)
+        videotitle:
+            type: text
+            variant: inline
+            label: Omschrijving van de video
+        oldvideo:
+            type: text
+            variant: inline
+            label: oude video
+            postfix: LET OP! Als hier een link instaat, plak deze dan met de hand naar 'Plak Vimeo of Youtube url', hierboven.
+        starttijd:
+            prefix: "<hr>"
+            type: datetime
+            variant: inline
+            label: Speeldag en starttijd
+            postfix: AM is voor de middag, PM is na de middag
+        eindtijd:
+            type: datetime
+            variant: inline
+            label: Eindtijd
+        speellokatie:
+            type: text
+            class: narrow
+            label: Locatie
+        starttijd2:
+            prefix: "<hr>"
+            type: datetime
+            variant: inline
+            label: Speeldag en starttijd 2
+            postfix: AM is voor de middag, PM is na de middag
+        eindtijd2:
+            type: datetime
+            variant: inline
+            label: Eindtijd 2
+        speellokatie2:
+            type: text
+            class: narrow
+            label: Locatie 2
+        starttijd3:
+            prefix: "<hr>"
+            type: datetime
+            variant: inline
+            label: Speeldag en starttijd 3
+            postfix: AM is voor de middag, PM is na de middag
+        eindtijd3:
+            type: datetime
+            variant: inline
+            label: Eindtijd 3
+        speellokatie3:
+            type: text
+            class: narrow
+            label: Locatie 3
+            postfix: "<hr style='border-color:red'>"
+        speeldag:
+            type: text
+            variant: inline
+            class: narrow
+        speeltijd:
+            type: text
+            variant: inline
+            class: narrow
+        speelduur:
+            type: text
+            variant: inline
+            class: narrow
+        speeldag2:
+            type: text
+            variant: inline
+            class: narrow
+        speeltijd2:
+            type: text
+            variant: inline
+            class: narrow
+        speellokatie2:
+            type: text
+            variant: inline
+            class: narrow
+        speelduur2:
+            type: text
+            variant: inline
+            class: narrow
+        speeldag3:
+            type: text
+            variant: inline
+            class: narrow
+        speeltijd3:
+            type: text
+            variant: inline
+            class: narrow
+        speellokatie3:
+            type: text
+            variant: inline
+            class: narrow
+        speelduur3:
+            type: text
+            variant: inline
+            class: narrow
+        speeldag4:
+            type: text
+            variant: inline
+            class: narrow
+        speeltijd4:
+            type: text
+            variant: inline
+            class: narrow
+        speellokatie4:
+            type: text
+            variant: inline
+            class: narrow
+        speelduur4:
+            type: text
+            variant: inline
+            class: narrow
+    record_template: item_programmaonderdeel.twig
+    listing_template: listing_programma.twig
+    taxonomy: [ tags, programmatypen ]
+    relations:
+        programma:
+            multiple: false
+            label: Kies het programma waar dit onderdeel bij hoort
+    recordsperpage: 100
+
+
+

@@ -1,0 +1,63 @@
+# This file defines the different types of taxonomies in Bolt. See the
+# documentation for details: http://docs.bolt.cm/taxonomies#taxonomies
+
+
+
+
+programmatypen:
+    name: Programmatypen
+    slug: programmatypen
+    singular_name: programmatype
+    singular_slug: programmatype
+    behaves_like: categories
+    multiple: true
+    options: 
+      - muziek
+      - dj
+      - kunst
+      - kolder
+      - overig
+      - kunst-nacht
+      - kinderkunst
+      - kids
+      - film
+      - hcts
+
+locaties:
+    name: Locaties
+    slug: locaties
+    singular_name: Locatie
+    singular_slug: locatie
+    behaves_like: categories
+    multiple: true
+    options: 
+      bolderzaal: "De Bolder zaal"
+      boldercafe: "De Bolder café"
+      podiumvlieland: "Podium Vlieland"
+      sportveld: "Sportveld"
+      bospodium: "Naar Buiten"
+      vuurboetsduin: "Vuurboetsduin"
+      fortweg: "Fortweg"
+
+tags:
+    slug: tags
+    singular_slug: tag
+    behaves_like: tags
+    postfix: "Add some freeform tags. Start a new tag by typing a comma or space."
+    #listing_template: tag-listing.twig #custom template
+
+chapters:
+    slug: chapters
+    singular_slug: chapter
+    behaves_like: grouping
+    options: { main: "The main chapter", meta: "Meta Chapter", other: "The other stuff" }
+    has_sortorder: true
+
+categories:
+    name: Categories
+    slug: categories
+    singular_name: Category
+    singular_slug: category
+    behaves_like: categories
+    multiple: true
+    options: [ news, events, movies, music, books, life, love, fun ]
