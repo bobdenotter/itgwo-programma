@@ -22,7 +22,12 @@ speeltijden:
             variant: inline
             label: Speelduur
             postfix: "Lengte van het optreden / performance. In minuten, dus '2 uur' is '120'."
-        programma: 
+        programmaonderdelen: 
+            type: select
+            label: Programma-onderdeel
+            values: programmas/title
+            keys: slug
+        programmas: 
             type: select
             label: Programma
             postfix: "Bij welke editie van GWO of HCTS hoort dit?"
@@ -43,7 +48,7 @@ speeltijden:
               fortweg: "Fortweg"            
 
 
-programma:
+programmas:
     name: Programmas
     singular_name: Programma
     fields:
@@ -74,6 +79,7 @@ programmaonderdelen:
         name:
             type: text
             class: large
+            group: "Naam en zo."
         slug:
             type: slug
             uses: name
