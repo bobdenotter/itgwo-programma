@@ -25,7 +25,7 @@ speeltijden:
         programmaonderdelen: 
             type: select
             label: Programma-onderdeel
-            values: programmas/title
+            values: programmaonderdelen/title
             keys: slug
         programmas: 
             type: select
