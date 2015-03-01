@@ -73,8 +73,6 @@ programmas:
         datum:
             type: date
             postfix: "De datum van deze editie. (om te kunnen sorteren)"
-    record_template: pagina_programma.twig
-    listing_template: listing_programmas.twig
     taxonomy: [ chapters ]
     sort: -datum
     recordsperpage: 100
@@ -234,8 +232,6 @@ programmaonderdelen:
             type: text
             variant: inline
             class: narrow
-    record_template: item_programmaonderdeel.twig
-    listing_template: listing_programma.twig
     taxonomy: [ tags, programmatypen ]
     recordsperpage: 20
 

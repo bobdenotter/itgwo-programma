@@ -2,29 +2,6 @@
 
 <aside class="large-4 columns">
 
-    <div class="panel">
-        {# The next section attempts to fill the panel in the sidebar with part of the
-           'about'-page, if it exists. First, attempt to fetch a page with slug 'about' #}
-        {% setcontent about = "page/about" %}
-
-        {# check if we have a title. If so, we know we have a page. Otherwise, still
-           print a text, telling us to create the 'about' page. #}
-        {% if about.title is defined %}
-
-            <h5>{{ about.title }}</h5>
-            {{ about.teaser }}
-
-            <a href="{{ about.link }}">{{ __('Read more') }} &raquo;</a>
-
-        {% else %}
-
-            <h5>{{ __('Alas, no about!') }}</h5>
-
-            <p>{{ __("If there was a Page with 'about' for a slug, it would've been shown here. But there isn't one, so that's why you're seeing this placeholder.") }}</p>
-
-        {% endif %}
-
-    </div>
 
     {# The next section iterates over all of the contenttypes, and prints a list
        of the five latest records of each of them. The 'magic' happens in the
