@@ -40,8 +40,9 @@ speeltijden:
               '': '-'
               bolderzaal: "De Bolder zaal"
               boldercafe: "De Bolder café"
-              bospodium: "Naar Buiten"
+              bospodium: "Bospodium"
               '-': '-'
+              naarbuiten: "Naar Buiten"
               podiumvlieland: "Podium Vlieland"
               sportveld: "Sportveld"
               vuurboetsduin: "Vuurboetsduin"
