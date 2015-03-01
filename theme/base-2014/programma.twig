@@ -2,71 +2,72 @@
 
 <!-- Main Page Content and Sidebar -->
 
-    <!-- Main Blog Content -->
-    <div class="large-12 columns">
+<!-- Main Blog Content -->
+<div class="large-12 columns">
 
-        <article>
+    <article>
 
-            <h2>{{ record.title }}</h2>
+        <h2>{{ record.title }}</h2>
 
-            {% if record.image!="" %}
-                <div class="large-4 columns imageholder">
-                    <a href="{{ image(record.image) }}">
-                        <img src="{{ thumbnail(record.image, 400, 260) }}">
-                    </a>
-                </div>
-            {% endif %}
+        {% if record.image!="" %}
+            <div class="large-4 columns imageholder">
+                <a href="{{ image(record.image) }}">
+                    <img src="{{ thumbnail(record.image, 400, 260) }}">
+                </a>
+            </div>
+        {% endif %}
 
-            {{ record.teaser }}
+        {{ record.teaser }}
 
-            <h1>Programma</h1>
+        <h1>Programma</h1>
 
-                {% setcontent speeltijden = "speeltijden" where { 'programmas': record.slug }  %}
+        {% setcontent speeltijden = "speeltijden" where { 'programmas': record.slug }  %}
 
-                    {{ dump(speeltijden) }}
+        <table id="speeltijden" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Speeltijd</th>
+                    <th>Speelduur</th>
+                    <th>locatie</th>
+                    <th>link</th>
+                    <th>bewerk</th>
+                </tr>
+            </thead>
 
-                    <table>
-                        <tr>
-                            <th>Naam</th>
-                            <th>Speeltijd</th>
-                            <th>Speelduur</th>
-                            <th>locatie</th>
-                            <th>link</th>
-                            <th>bewerk</th>
-                        </tr>
+            <tbody>
+                {% for speeltijd in speeltijden %}
+                <tr>
+                    <td>{{ speeltijd.title }}</td>
+                    <td>{{ speeltijd.starttijd }}</td>
+                    <td>{{ speeltijd.lengte }} minuten</td>
+                    <td>{{ speeltijd.speellokatie }}</td>
+                    <td>
+                        Link: <a href="/programmaonderdeel/{{speeltijd.programmaonderdelen}}">
+                        {{speeltijd.programmaonderdelen|default('geen')}}</a>
+                    </td>
+                    <td>
+                        <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">bewerk</a>
+                    </td>
 
+                </tr>
+                {% endfor %}
+            </tbody>
 
-                    {% for speeltijd in speeltijden %}
-                        <tr>
-                            <td>{{ speeltijd.title }}</td>
-                            <td>{{ speeltijd.starttijd }}</td>
-                            <td>{{ speeltijd.lengte }} minuten</td>
-                            <td>{{ speeltijd.speellokatie }}</td>
-                            <td>
-                                Link: <a href="/programmaonderdeel/{{speeltijd.programmaonderdelen}}">
-                                {{speeltijd.programmaonderdelen|default('geen')}}</a>
-                            </td>
-                            <td>
-                                Bewerk: <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">
-                                {{speeltijd.id}}</a>
-                            </td>
+        </table>
 
-                        </tr>
-
-                    {% endfor %}
-
-
-
-            </table>
-
-        </article>
+        <br>
+        <p>Protip: Klik the kolomhoofden om de tabel te sorteren. </p>
 
 
-    </div>
+    </article>
+
+
+</div>
 
     <!-- End Main Content -->
 
 
 
 
-{% include '_footer.twig' %}
+    {% include '_footer.twig' %}
