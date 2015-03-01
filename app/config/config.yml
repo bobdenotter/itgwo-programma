@@ -1,6 +1,6 @@
 
 # The name of the website
-sitename: A sample site
+sitename: ITGWO Programma opschonen
 payoff: The amazing payoff goes here
 
 # The theme to use. Be sure to copy the {theme_path}/base-2014 folder, and change the
@@ -10,7 +10,7 @@ theme: base-2014
 
 # The locale that'll be used by the application. If no locale is set the
 # fallback locale is 'en_GB'. For available options, see: http://docs.bolt.cm/locales
-locale: en_GB
+locale: nl_NL
 #timezone: UTC
 
 # Set maintenance mode true or false
@@ -20,8 +20,8 @@ locale: en_GB
 # this option using your own theme. Note: If you've changed the filename, and
 # your changes do not show up on the website, be sure to check for a config.yml
 # file in your theme's folder. If a template is set there, it will override the
-# setting here. 
-maintenance_mode: false 
+# setting here.
+maintenance_mode: false
 maintenance_template: maintenance_default.twig
 
 # The hour of the day for the internal cron task scheduler to run daily, weekly,

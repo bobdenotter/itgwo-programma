@@ -1,0 +1,72 @@
+{% include '_header.twig' %}
+
+<!-- Main Page Content and Sidebar -->
+
+    <!-- Main Blog Content -->
+    <div class="large-12 columns">
+
+        <article>
+
+            <h2>{{ record.title }}</h2>
+
+            {% if record.image!="" %}
+                <div class="large-4 columns imageholder">
+                    <a href="{{ image(record.image) }}">
+                        <img src="{{ thumbnail(record.image, 400, 260) }}">
+                    </a>
+                </div>
+            {% endif %}
+
+            {{ record.teaser }}
+
+            <h1>Programma</h1>
+
+                {% setcontent speeltijden = "speeltijden" where { 'programmas': record.slug }  %}
+
+                    {{ dump(speeltijden) }}
+
+                    <table>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Speeltijd</th>
+                            <th>Speelduur</th>
+                            <th>locatie</th>
+                            <th>link</th>
+                            <th>bewerk</th>
+                        </tr>
+
+
+                    {% for speeltijd in speeltijden %}
+                        <tr>
+                            <td>{{ speeltijd.title }}</td>
+                            <td>{{ speeltijd.starttijd }}</td>
+                            <td>{{ speeltijd.lengte }} minuten</td>
+                            <td>{{ speeltijd.speellokatie }}</td>
+                            <td>
+                                Link: <a href="/programmaonderdeel/{{speeltijd.programmaonderdelen}}">
+                                {{speeltijd.programmaonderdelen|default('geen')}}</a>
+                            </td>
+                            <td>
+                                Bewerk: <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">
+                                {{speeltijd.id}}</a>
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+
+
+            </table>
+
+        </article>
+
+
+    </div>
+
+    <!-- End Main Content -->
+
+
+
+
+{% include '_footer.twig' %}

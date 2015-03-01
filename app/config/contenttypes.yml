@@ -25,7 +25,7 @@ speeltijden:
         programmaonderdelen:
             type: select
             label: Programma-onderdeel
-            values: programmaonderdelen/title
+            values: programmaonderdelen/name
             keys: slug
         programmas:
             type: select
@@ -46,6 +46,10 @@ speeltijden:
               sportveld: "Sportveld"
               vuurboetsduin: "Vuurboetsduin"
               fortweg: "Fortweg"
+    viewless: true
+    default_status: published
+    sort: -starttijd
+
 
 programmas:
     name: Programmas
@@ -66,11 +70,16 @@ programmas:
         body:
             type: html
             height: 300px
+        datum:
+            type: date
+            postfix: "De datum van deze editie. (om te kunnen sorteren)"
     record_template: pagina_programma.twig
     listing_template: listing_programmas.twig
     taxonomy: [ chapters ]
-    sort: title
+    sort: -datum
     recordsperpage: 100
+    record_template: programma.twig
+
 
 programmaonderdelen:
     name: Programmaonderdelen
@@ -119,6 +128,7 @@ programmaonderdelen:
             type: text
             variant: inline
             label: oude video
+            prefix: "<h2>LET OP!! Dit is de <em>oude meuk</em>!</h2><p>Deze wordt op de nieuwe site niet meer gebruikt en staat hier alleen om dingen in terug te zoeken enzo. Hieronder dingen aanpassen heeft geen zin.</p>"
             postfix: LET OP! Als hier een link instaat, plak deze dan met de hand naar 'Plak Vimeo of Youtube url', hierboven.
             group: "Oude meuk"
         starttijd:
