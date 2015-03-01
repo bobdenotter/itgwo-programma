@@ -4,7 +4,7 @@
 speeltijden:
     name: Speeltijden
     singular_name: Speeltijd
-    fields: 
+    fields:
         title:
             type: text
             class: large
@@ -22,12 +22,12 @@ speeltijden:
             variant: inline
             label: Speelduur
             postfix: "Lengte van het optreden / performance. In minuten, dus '2 uur' is '120'."
-        programmaonderdelen: 
+        programmaonderdelen:
             type: select
             label: Programma-onderdeel
             values: programmaonderdelen/title
             keys: slug
-        programmas: 
+        programmas:
             type: select
             label: Programma
             postfix: "Bij welke editie van GWO of HCTS hoort dit?"
@@ -36,7 +36,7 @@ speeltijden:
         speellokatie:
             type: select
             label: Locatie
-            values: 
+            values:
               '': '-'
               bolderzaal: "De Bolder zaal"
               boldercafe: "De Bolder café"
@@ -45,8 +45,7 @@ speeltijden:
               podiumvlieland: "Podium Vlieland"
               sportveld: "Sportveld"
               vuurboetsduin: "Vuurboetsduin"
-              fortweg: "Fortweg"            
-
+              fortweg: "Fortweg"
 
 programmas:
     name: Programmas
@@ -55,6 +54,7 @@ programmas:
         title:
             type: text
             class: large
+            group: Informatie
         slug:
             type: slug
             uses: title
@@ -95,19 +95,20 @@ programmaonderdelen:
             variant: inline
             label: Credit fotograaf
         url:
+            prefix: "<hr><h3>Links, embeds, etc.</h3>"
             type: text
             variant: inline
-            label: website artiest of project
+            label: Website artiest of project
         spotify_link:
             type: text
             variant: inline
             label: Spotify url (http link)
         embed:
             type: text
-            class: narrow
-            label: Ruimte voor een embedcode (bijv. Soundcloud)
+            variant: inline
+            label: Embedcode
+            postfix: Ruimte voor een embedcode (bijv. Soundcloud)
         video:
-            prefix: "<hr>"
             type: video
             label: Plak Vimeo of Youtube url (geen embedcode dus)
         videotitle:
@@ -226,11 +227,7 @@ programmaonderdelen:
     record_template: item_programmaonderdeel.twig
     listing_template: listing_programma.twig
     taxonomy: [ tags, programmatypen ]
-    relations:
-        programma:
-            multiple: false
-            label: Kies het programma waar dit onderdeel bij hoort
-    recordsperpage: 100
+    recordsperpage: 20
 
 
 
