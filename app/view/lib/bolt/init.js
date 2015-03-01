@@ -187,32 +187,20 @@ var init = {
             $('#editcontent').attr('action', '').attr('target', "_self");
         });
 
-        // Only if we have grouping tabs. We add a tiny delay, so that fields not
-        // currently in view, still have time to initialize. (Like "Geolocation" fields)
-        if (data.hasGroups) {
-            window.setTimeout(function() {
-                // Filter for tabs
-                var allf = $('.tabgrouping');
-                allf.hide();
-                // Click function
-                $(".filter").click(function() {
-                    var customType = $(this).data('filter');
-                    allf
-                        .hide()
-                        .filter(function () {
-                            return $(this).data('tab') === customType;
-                        })
-                        .show();
-                    $('#filtertabs li').removeClass('active');
-                    $(this).parent().attr('class', 'active');
-                });
-
-                $(document).ready(function () {
-                    $('#filtertabs li a:first').trigger('click');
-                });
-            }, 200);
+        // Persistent tabgroups
+        var hash = window.location.hash;
+        if (hash) {
+            $('#filtertabs a[href="#tab-' + hash.replace(/^#/, '') + '"]').tab('show');
         }
 
+        $('#filtertabs a').click(function () {
+            var top;
+
+            $(this).tab('show');
+            top = $('body').scrollTop();
+            window.location.hash = this.hash.replace(/^#tab-/, '');
+            $('html,body').scrollTop(top);
+        });
     },
 
     /*
@@ -366,20 +354,6 @@ var init = {
     },
 
     /*
-     * Bind ua
-     */
-    bindUserAgents: function () {
-        $('.useragent').each(function () {
-            var parser = new UAParser($(this).data('ua')),
-                result = parser.getResult();
-
-            $(this).html(
-                result.browser.name + " " + result.browser.major + " / " + result.os.name + " " + result.os.version
-            );
-        });
-    },
-
-    /*
      * Bind video field
      *
      * @param {object} data
@@ -423,6 +397,7 @@ var init = {
             config.uiColor = '#DDDDDD';
             config.resize_enabled = true;
             config.entities = false;
+            config.fillEmptyBlocks = false;
             config.extraPlugins = 'codemirror';
             config.toolbar = [
                 { name: 'styles', items: ['Format'] },
@@ -540,6 +515,16 @@ var init = {
                 }
             }
         };
+
+        // When 'pasting' from Word (or perhaps other editors too), you'll often
+        // get extra `&nbsp;&nbsp;` or `<p>&nbsp;</p>`. Strip these out on paste:
+        CKEDITOR.on('instanceReady', function(ev) {
+            ev.editor.on('paste', function(evt) {
+                evt.data.dataValue = evt.data.dataValue.replace(/&nbsp;/g,'');
+                evt.data.dataValue = evt.data.dataValue.replace(/<p><\/p>/g,'');
+                console.log(evt.data.dataValue);
+            }, null, null, 9);
+        });
     },
 
     /**
@@ -562,7 +547,7 @@ var init = {
         // Check all checkboxes
         $(".dashboardlisting tr th:first-child input:checkbox").click(function () {
             var checkedStatus = this.checked;
-            $(".dashboardlisting tr td:first-child input:checkbox").each(function () {
+            $(this).closest('tbody').find('td input:checkbox').each(function () {
                 this.checked = checkedStatus;
                 if (checkedStatus === this.checked) {
                     $(this).closest('table tbody tr').removeClass('row-checked');
@@ -592,20 +577,17 @@ var init = {
                 notice,
                 rec;
 
-            if (aItems.length < 1) {
-                bootbox.alert("Nothing chosen to delete");
-            } else {
-                rec = aItems.length === 1 ? "this record" : "these records";
-                notice = "Are you sure you wish to <strong>delete " + rec + "</strong>? There is no undo.";
+            if (aItems.length > 0) {
+                notice = aItems.length === 1 ? bolt.data.recordlisting.delete_one : bolt.data.recordlisting.delete_mult;
                 bootbox.confirm(notice, function (confirmed) {
-                    $(".alert").alert();
+                    $('.alert').alert();
                     if (confirmed === true) {
                         $.each(aItems, function (index, id) {
                             // Delete request
                             $.ajax({
-                                url: $('#baseurl').attr('value') + 'content/deletecontent/' +
-                                    $('#item_' + id).closest('table').data('contenttype') + '/' + id + '?token=' +
-                                    $('#item_' + id).closest('table').data('token'),
+                                url: bolt.paths.bolt + 'content/deletecontent/' +
+                                    $('#item_' + id).closest('table').data('contenttype') + '/' + id +
+                                    '?bolt_csrf_token=' + $('#item_' + id).closest('table').data('bolt_csrf_token'),
                                 type: 'get',
                                 success: function (feedback) {
                                     $('#item_' + id).hide();

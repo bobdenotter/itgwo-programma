@@ -18,7 +18,13 @@ class StatService
 
     public function recordInstall($package, $version)
     {
-        $url = sprintf($this->app['extend.site'].$this->urls['install'], $package, $version);
-        @file_get_contents($url);
+        $url = sprintf($this->app['extend.site'] . $this->urls['install'], $package, $version);
+
+        try {
+            $this->app['logger.system']->info("Installed $package $version", array('event' => 'extensions'));
+            $this->app['guzzle.client']->head($url)->send();
+        } catch (\Exception $e) {
+            $this->app['logger.system']->critical($e->getMessage(), array('event' => 'exception', 'exception' => $e));
+        }
     }
 }
