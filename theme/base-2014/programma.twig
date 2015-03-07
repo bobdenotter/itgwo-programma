@@ -36,28 +36,60 @@
             <tbody>
                 {% for speeltijd in speeltijden %}
                 <tr>
-                    <td>{{ speeltijd.title }}</td>
-                    <td>{% if speeltijd.starttijd is not empty %}
-                        {{ speeltijd.starttijd|localdate("%a %H:%M") }}
--
-{% set eindtijd = speeltijd.starttijd ~ " + " ~ speeltijd.lengte ~ " minutes" %}
-{{ eindtijd|localdate("%a %H:%M") }}
-<br><span style="font-size: 90%">({{ speeltijd.lengte }} minuten)</span>
-                        {% else %}
-                            <em>niet ingevuld</em>
-                        {% endif %}</td>
+                    <td>
+                        {{ speeltijd.title }}
 
-                    <td>{{ speeltijd.speellokatie }}</td>
+                        {% if speeltijd.starttijd is empty or speeltijd.speellokatie is empty %}
+                        {% setcontent fuzzy = 'programmaonderdelen' returnsingle where {'slug': speeltijd.programmaonderdelen } %}
+                        <p class="fuzzy"><strong>Fuzzy data:</strong>
+                            {{ fuzzy.starttijd }}
+                            {{ fuzzy.eindtijd }}
+                            {{ fuzzy.speellokatie }}
+                            {{ fuzzy.speeldag }}
+                            {{ fuzzy.speeltijd }}
+                            {{ fuzzy.speelduur }}
+                            {{ fuzzy.speeldag2 }}
+                            {{ fuzzy.speeltijd2 }}
+                            {{ fuzzy.speelduur2 }}
+                            {{ fuzzy.speeldag3 }}
+                            {{ fuzzy.speeltijd3 }}
+                            {{ fuzzy.speelduur3 }}
+                            {{ fuzzy.speeldag4 }}
+                            {{ fuzzy.speeltijd4 }}
+                            {{ fuzzy.speellokatie4 }}
+                            {{ fuzzy.speelduur4 }}
+                        </p>
+                        {% endif %}
+
+                    </td>
+
+                    <td>
+                        {% if speeltijd.starttijd is not empty %}
+                        {{ speeltijd.starttijd|localdate("%a %H:%M") }}
+                        -
+                        {% set eindtijd = speeltijd.starttijd ~ " + " ~ speeltijd.lengte ~ " minutes" %}
+                        {{ eindtijd|localdate("%a %H:%M") }}
+                        <br><span style="font-size: 90%">({{ speeltijd.lengte }} minuten)</span>
+                        {% else %}
+                        <span class="todo">niet ingevuld</span>
+
+                        {% endif %}
+                    </td>
+
+                    <td>
+                        {{ speeltijd.speellokatie|default('<span class="todo">niet ingevuld</span>')|raw }}
+                    </td>
+
                     <td>
                     {% if speeltijd.programmaonderdelen is not empty and speeltijd.programmaonderdelen != "0" %}
                         Link: <a href="/programmaonderdeel/{{speeltijd.programmaonderdelen}}">
                         {{speeltijd.programmaonderdelen|default('geen')|excerpt(40)}}</a> <br>
                     {% else %}
-                        <strong>Niet gekoppeld!!</strong>
+                        <span class="todo">Niet gekoppeld</span>
                     {% endif %}
 
-                        Bewerk: <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">
-                        #{{speeltijd.id}}</a>
+                        Bewerk: <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">Speeltijd #{{speeltijd.id}}</a>
+
                     </td>
 
                 </tr>

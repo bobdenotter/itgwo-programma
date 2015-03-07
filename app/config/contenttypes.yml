@@ -40,16 +40,31 @@ speeltijden:
             type: select
             label: Locatie
             values:
-              '': '-'
-              bolderzaal: "De Bolder zaal"
-              boldercafe: "De Bolder café"
-              bospodium: "Bospodium"
-              '-': '-'
-              naarbuiten: "Naar Buiten"
-              podiumvlieland: "Podium Vlieland"
-              sportveld: "Sportveld"
-              vuurboetsduin: "Vuurboetsduin"
-              fortweg: "Fortweg"
+                '': '-'
+                bolder-zaal: "De Bolder zaal"
+                bolder-cafe: "De Bolder café"
+                ruige-plak: 'Ruige Plak'
+                '-': '-'
+                armhuis: 'Armhuis'
+                bolder-restaurant: 'De Bolder restaurant'
+                bolder-terras: 'De Bolder terras'
+                bos: 'Bospodium'
+                bospodium: 'Bospodium'
+                de-bolder: 'De Bolder'
+                fortweg: 'Fortweg'
+                kerk-sportveld: 'Kerk Sportveld'
+                kerk: 'Kerk'
+                kolder: 'De Kolder'
+                kunst: 'Kunst'
+                naar-buiten: 'Naar Buiten'
+                platte-kar: 'De Platte Kar'
+                podium-vlieland: 'Podium Vlieland'
+                pukkel: 'De Pukkel, Sportveld'
+                sportveld: 'Sportveld'
+                stoep: 'De Ouwe Stoep'
+                strand: 'Strand'
+                tokkelbaan: 'Tokkelbaan'
+                vuurboetsduin: 'Vuurboetsduin'
     viewless: true
     default_status: published
     sort: -starttijd

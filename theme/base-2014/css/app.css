@@ -243,3 +243,15 @@ table#speeltijden td {
 table#speeltijden a {
     text-decoration: underline;
 }
+
+span.todo {
+    background-color: #F44;
+    color: #FFF;
+    padding: 3px;
+}
+
+p.fuzzy {
+    font-style: italic;
+    color: #999;
+    font-size: 12px;
+}
