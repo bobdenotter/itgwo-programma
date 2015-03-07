@@ -15,6 +15,6 @@ return array(
     'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
     'Bolt\\Thumbs\\Tests\\' => array($vendorDir . '/bolt/thumbs/tests'),
     'Bolt\\Thumbs\\' => array($vendorDir . '/bolt/thumbs/src'),
-    'Bolt\\Tests\\' => array($baseDir . '/tests'),
+    'Bolt\\Tests\\' => array($baseDir . '/tests/phpunit'),
     'Bolt\\' => array($baseDir . '/src'),
 );

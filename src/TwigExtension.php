@@ -196,6 +196,7 @@ class TwigExtension extends \Twig_Extension
         if ($this->safe || !$this->app['debug']) {
             return null;
         }
+
         return VarDumper::dump($var);
     }
 
@@ -237,6 +238,7 @@ class TwigExtension extends \Twig_Extension
         if ($this->safe || !$this->app['debug']) {
             return null;
         }
+
         return VarDumper::dump(debug_backtrace());
     }
 
@@ -373,7 +375,7 @@ class TwigExtension extends \Twig_Extension
         }
 
         if (preg_match("/ ([a-z0-9_-]+\.yml)/i", $str, $matches)) {
-            $path = Lib::path('fileedit', array('namespace' => 'app', 'file' => 'config/' . $matches[1]));
+            $path = Lib::path('fileedit', array('namespace' => 'config', 'file' => $matches[1]));
             $link = sprintf(" <a href='%s'>%s</a>", $path, $matches[1]);
             $str = preg_replace("/ ([a-z0-9_-]+\.yml)/i", $link, $str);
         }
@@ -939,7 +941,7 @@ class TwigExtension extends \Twig_Extension
         $path = $this->app['url_generator']->generate(
             'thumb',
             array(
-                'thumb' => round($width) . 'x' . round($height) . $scale . '/'. $filename,
+                'thumb' => round($width) . 'x' . round($height) . $scale . '/' . $filename,
             )
         );
 

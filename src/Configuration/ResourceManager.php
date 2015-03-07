@@ -106,6 +106,7 @@ class ResourceManager
         $loaderPath = dirname($loader->findFile('Composer\\Autoload\\ClassLoader'));
         // Remove last vendor/* off loaderPath to get our root path
         list($rootPath) = explode('vendor', $loaderPath, -1);
+
         return $this->setPath('root', $rootPath);
     }
 
@@ -244,11 +245,23 @@ class ResourceManager
      *
      * @param Request $request
      */
-    public function initializeRequest(Request $request = null)
+    public function initializeRequest(Application $app, Request $request = null)
     {
         if ($request === null) {
             $request = Request::createFromGlobals();
         }
+
+        // This is where we set the canonical. Note: The protocol (scheme) defaults to 'http',
+        // and the path is discarded, as it makes no sense in this context: Bolt always
+        // determines the path for a page / record. This is not the canonical's job.
+        $canonical = parse_url($app['config']->get('general/canonical', ""));
+        if (empty($canonical['scheme'])) {
+            $canonical['scheme'] = 'http';
+        }
+        if (empty($canonical['host'])) {
+            $canonical['host'] = $request->server->get('HTTP_HOST');
+        }
+        $this->setRequest("canonical", sprintf("%s://%s", $canonical['scheme'], $canonical['host']));
 
         // Set the current protocol. Default to http, unless otherwise.
         $protocol = "http";
@@ -276,23 +289,12 @@ class ResourceManager
         $this->setRequest("protocol", $protocol);
         $hostname = $request->server->get('HTTP_HOST');
         $this->setRequest('hostname', $hostname);
-        $current = $request->getPathInfo();
+        $current = $request->getBasePath() . $request->getPathInfo();
         $this->setUrl('current', $current);
-        $this->setUrl('canonicalurl', sprintf('%s://%s%s', $protocol, $this->getRequest('canonical'), $current));
+        $this->setUrl('canonicalurl', sprintf('%s%s', $this->getRequest('canonical'), $current));
         $this->setUrl('currenturl', sprintf('%s://%s%s', $protocol, $hostname, $current));
         $this->setUrl('hosturl', sprintf('%s://%s', $protocol, $hostname));
-        $this->setUrl('rooturl', sprintf('%s://%s%s', $protocol, $this->getRequest('canonical'), $rootUrl));
-    }
-
-    /**
-     * Takes a Bolt Application and uses it to initialize settings that depend on the application config.
-     *
-     * @param \Bolt\Application $app
-     */
-    public function initializeApp(Application $app)
-    {
-        $canonical = $app['config']->get('general/canonical', "");
-        $this->setRequest("canonical", $canonical);
+        $this->setUrl('rooturl', sprintf('%s%s', $this->getRequest('canonical'), $rootUrl));
     }
 
     /**
@@ -309,8 +311,7 @@ class ResourceManager
 
     public function initialize()
     {
-        $this->initializeApp($this->app);
-        $this->initializeRequest($this->requestObject);
+        $this->initializeRequest($this->app, $this->requestObject);
         $this->postInitialize();
     }
 

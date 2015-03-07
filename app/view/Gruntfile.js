@@ -22,6 +22,7 @@ module.exports = function(grunt) {
             'lib/bolt/obj-stack.js',
             'lib/bolt/obj-folders.js',
             'lib/bolt/obj-datetime.js',
+            'lib/bolt/obj-validation.js',
             'lib/bolt/extend.js',
             'lib/bolt/init.js',
             'lib/bolt/start.js'
@@ -114,11 +115,13 @@ module.exports = function(grunt) {
          */
         endline: {
             prepareCkeditor: {
-                files: {
-                    src: [
-                        'lib/ckeditor/**/*.js'
-                    ]
-                }
+                options: {
+                    replaced: true
+                },
+                src: [
+                    'lib/ckeditor/**/*.js'
+                ],
+                dest: false
             }
         },
 
@@ -349,7 +352,7 @@ module.exports = function(grunt) {
                 options: {
                     banner: "/**\n" +
                             " * These are Bolt's COMPILED JS files!\n" +
-                            " * You can edit files in <js/src/*.js> and run 'grunt' to generate this file.\n" +
+                            " * You can edit files in <lib/bolt/*.js> and run 'grunt' to generate this file.\n" +
                             " */",
                     sourceMap: true,
                     sourceMapName: 'js/maps/bolt.min.js.map'
@@ -379,28 +382,28 @@ module.exports = function(grunt) {
                     undef: true,        // Prohibits the use of undeclared variables
                     globals: {
                         // Bolt
-                        bolt: true,                 // src/console.js
-                        FilelistHolder: true,       // src/upload-files.js
-                        Files: true,                // src/obj-files.js
-                        Folders: true,              // src/obj-folders.js
-                        init: true,                 // src/init.js
-                        Moments: true,              // src/obj-moments.js
-                        Navpopups: true,            // src/obj-navpopups.js
-                        Sidebar: true,              // src/obj-sidebar.js
-                        Stack: true,                // src/obj-stack.js
-                        site: true,                 // src/extend.js/extend.twig
-                        baseurl: true,              // src/extend.js/extend.twig
-                        rootpath: true,             // src/extend.js/extend.twig
+                        bolt: true,                 // bolt/console.js
+                        FilelistHolder: true,       // bolt/upload-files.js
+                        Files: true,                // bolt/obj-files.js
+                        Folders: true,              // bolt/obj-folders.js
+                        init: true,                 // bolt/init.js
+                        Moments: true,              // bolt/obj-moments.js
+                        Navpopups: true,            // bolt/obj-navpopups.js
+                        Sidebar: true,              // bolt/obj-sidebar.js
+                        Stack: true,                // bolt/obj-stack.js
+                        site: true,                 // bolt/extend.js/extend.twig
+                        baseurl: true,              // bolt/extend.js/extend.twig
+                        rootpath: true,             // bolt/extend.js/extend.twig
                         // Bolt global functions
-                        bindFileUpload: true,       // src/bindfileuploads.js
-                        bindGeolocation: true,      // src/geolocation.js
-                        bindVideoEmbed: true,       // src/video-embed.js
-                        getSelectedItems: true,     // src/fnc-helpers.js
-                        makeUri: true,              // src/make-uri-slug.js
-                        makeUriAjax: true,          // src/make-uri-slug.js
-                        stopMakeUri: true,          // src/make-uri-slug.js
-                        updateLatestActivity: true, // src/activity.js
-                        validateContent: true,      // src/fnc-helpers.js
+                        bindFileUpload: true,       // bolt/bindfileuploads.js
+                        bindGeolocation: true,      // bolt/geolocation.js
+                        bindVideoEmbed: true,       // bolt/video-embed.js
+                        getSelectedItems: true,     // bolt/fnc-helpers.js
+                        makeUri: true,              // bolt/make-uri-slug.js
+                        makeUriAjax: true,          // bolt/make-uri-slug.js
+                        stopMakeUri: true,          // bolt/make-uri-slug.js
+                        updateLatestActivity: true, // bolt/activity.js
+                        validateContent: true,      // bolt/fnc-helpers.js
                         // Vendor
                         $: true,                    // jQuery
                         _: true,                    // underscore.js
@@ -474,6 +477,46 @@ module.exports = function(grunt) {
 
     require('load-grunt-tasks')(grunt);
 
+    grunt.registerTask('libcssimg', 'Copy lib images & rebase urls', function() {
+        var css = grunt.file.read('css/lib.css'),
+            out = css,
+            urls = /url\((['"]?)(.+?)\1\)/g,
+            repl = {
+                'jquery-ui':    /^\.\.\/lib\/jquery-ui-.+?\/images\/ui-/,
+                'select2':      /^\.\.\/lib\/select2\//,
+                'jquery-upl':   /^\.\.\/lib\/jquery-fileupload\/img\//
+            },
+            done = {},
+            url,
+            dest,
+            to;
+
+        grunt.file.mkdir('img/lib');
+
+        while ((url = urls.exec(css)) !== null) {
+            for (to in repl) {
+                dest = url[2].replace(repl[to], 'img/lib/' + to + '-');
+                if (dest !== url[2]) {
+                    if (!done[dest]) {
+                        grunt.file.copy(url[2].replace(/^\.\.\/lib\//, 'lib/'), dest);
+                        out = out.replace(
+                            new RegExp(url[0].replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), 'g'),
+                            'url(' + url[1] + '../' + dest + url[1] + ')'
+                        );
+                        done[dest] = 1;
+                    }
+                    break;
+                } else {
+                    dest = false;
+                }
+            }
+            if (!dest && !url[2].match(/^data:/)) {
+                grunt.fail.warn('URL not handled: ' + url[2]);
+            }
+        }
+        grunt.file.write('css/lib.css', out);
+    });
+
     /*** DEFAULT TASK:  Watches for changes of Bolts own css and js files ***/
     grunt.registerTask(
         'default',
@@ -507,6 +550,7 @@ module.exports = function(grunt) {
             // Install
             'copy:'      + 'installFonts',              // Copies fonts                   => view/fonts/*
             'cssmin:'    + 'installLibCss',             // Concats and min. library css   => view/css/lib.css
+            'libcssimg:' + '',                          // Copy lib images & rebase urls  => view/img/lib/*
             'concat:'    + 'installLibJs',              // Concats min. library scripts   => view/js/lib.min.js
             'uglify:'    + 'installLocaleDatepicker',   // Copies min. datepicker locale  => view/js/locale/datepicker/*
             'uglify:'    + 'installLocaleMoment',       // Copies min. moment.js locale   => view/js/locale/moment/*

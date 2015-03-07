@@ -132,7 +132,9 @@ class PackageManager
 
             // Ping the extensions server to confirm connection
             $response = $this->ping(true);
-            $httpOk = array(200, 301, 302);
+
+            // @see http://tools.ietf.org/html/rfc2616#section-13.4
+            $httpOk = array(200, 203, 206, 300, 301, 302, 307, 410);
             if (in_array($response, $httpOk)) {
                 $this->app['extend.online'] = true;
             } else {
@@ -475,6 +477,7 @@ class PackageManager
         if ($readme) {
             return $this->app['resources']->getUrl('async') . 'readme/' . $readme;
         }
+
         return null;
     }
 
@@ -495,6 +498,7 @@ class PackageManager
         if (is_readable($configfilepath)) {
             return Lib::path('fileedit', array('namespace' => 'config', 'file' => 'extensions/' . $configfilename));
         }
+
         return null;
     }
 
