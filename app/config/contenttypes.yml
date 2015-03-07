@@ -27,6 +27,9 @@ speeltijden:
             label: Programma-onderdeel
             values: programmaonderdelen/name
             keys: slug
+            sort: name
+            autocomplete: true
+            limit: 2000
         programmas:
             type: select
             label: Programma

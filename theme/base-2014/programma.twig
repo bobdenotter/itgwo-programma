@@ -28,10 +28,8 @@
                 <tr>
                     <th>Naam</th>
                     <th>Speeltijd</th>
-                    <th>Speelduur</th>
                     <th>locatie</th>
                     <th>link</th>
-                    <th>bewerk</th>
                 </tr>
             </thead>
 
@@ -39,15 +37,27 @@
                 {% for speeltijd in speeltijden %}
                 <tr>
                     <td>{{ speeltijd.title }}</td>
-                    <td>{{ speeltijd.starttijd }}</td>
-                    <td>{{ speeltijd.lengte }} minuten</td>
+                    <td>{% if speeltijd.starttijd is not empty %}
+                        {{ speeltijd.starttijd|localdate("%a %H:%M") }}
+-
+{% set eindtijd = speeltijd.starttijd ~ " + " ~ speeltijd.lengte ~ " minutes" %}
+{{ eindtijd|localdate("%a %H:%M") }}
+<br><span style="font-size: 90%">({{ speeltijd.lengte }} minuten)</span>
+                        {% else %}
+                            <em>niet ingevuld</em>
+                        {% endif %}</td>
+
                     <td>{{ speeltijd.speellokatie }}</td>
                     <td>
+                    {% if speeltijd.programmaonderdelen is not empty and speeltijd.programmaonderdelen != "0" %}
                         Link: <a href="/programmaonderdeel/{{speeltijd.programmaonderdelen}}">
-                        {{speeltijd.programmaonderdelen|default('geen')}}</a>
-                    </td>
-                    <td>
-                        <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">bewerk</a>
+                        {{speeltijd.programmaonderdelen|default('geen')|excerpt(40)}}</a> <br>
+                    {% else %}
+                        <strong>Niet gekoppeld!!</strong>
+                    {% endif %}
+
+                        Bewerk: <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">
+                        #{{speeltijd.id}}</a>
                     </td>
 
                 </tr>

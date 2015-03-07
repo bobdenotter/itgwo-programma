@@ -3,31 +3,17 @@
 <aside class="large-4 columns">
 
 
-    {# The next section iterates over all of the contenttypes, and prints a list
-       of the five latest records of each of them. The 'magic' happens in the
-       setcontent tag.. ct.slug ~ "/latest/5" contatenates the slug ot the
-       contenttype with /latest/5, so it becomes something like "pages/latest/5".
-       The 'else' in the inner for-loop is only used if there are no 'records',
-       so we can use it to print a helpful message.
-       Lastly, "{{ paths.root }}{{ct.slug}}" will output something like '/pages',
-       effectively creating a working link to that contenttpye's listing page.#}
+      {% setcontent records = "programmas" limit 15  %}
 
-    {% for ct in app.config.get('contenttypes') if not ct.viewless|default(false) %}
-
-        {% setcontent records = ct.slug ~ "/latest/5" %}
-
-        <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.slug}) }}</h5>
-        <ul>
-            {% for record in records %}
-                <li><a href="{{ record.link }}">{{ record.title }}</a></li>
-            {% else %}
-                <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
-            {% endfor %}
-        </ul>
-        <p><a href="{{ paths.root }}{{ct.slug}}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.slug}) }} &raquo;</a></p>
-
-
-    {% endfor %}
+      <h5>{{ __('contenttypes.generic.recent', {'%contenttypes%': ct.slug}) }}</h5>
+      <ul>
+          {% for record in records %}
+              <li><a href="{{ record.link }}">{{ record.title }}</a></li>
+          {% else %}
+              <li>{{ __('contenttypes.generic.no-recent', {'%contenttype%': ct.slug}) }}</li>
+          {% endfor %}
+      </ul>
+      <p><a href="{{ paths.root }}{{ct.slug}}">{{ __('contenttypes.generic.overview',{'%contenttypes%': ct.slug}) }} &raquo;</a></p>
 
 
 </aside>
