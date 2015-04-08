@@ -1,0 +1,13 @@
+database:
+  driver: mysql
+  databasename: greatwide_progrm
+  username: greatwide_progrm
+  password: NoNygxESU
+
+
+
+debug: true
+
+maintenance_mode: true
+maintenance_template: maintenance_default.twig
+
