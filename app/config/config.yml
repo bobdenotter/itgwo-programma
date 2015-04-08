@@ -153,9 +153,9 @@ accept_file_types: [ twig, html, js, css, scss, gif, jpg, jpeg, png, ico, zip, t
 # convenience or to obscure it from prying eyes. The Bolt backend is accessible as /bolt/
 # by default, if you change it here, it will only be accessible through the value set in
 # 'path'. Keep the path simple: lowercase only, no extra slashes or other special characters.
-#branding:
+branding:
 #  name: SuperCMS
-#  path: /admin
+  path: /beheer
 #  provided_by: [ supercool@example.org, "Supercool Webdesign Co." ]
 
 # Show the 'debug' nut in the lower right corner for logged-in user. By default,

@@ -1,7 +1,73 @@
-Bolt 2.1 DEV-head
------------------
+Bolt 2.1.5
+----------
 
-Beta released on 2015-03-02. Notable changes:
+Not yet released. Notable changes: 
+
+ - Fixed: Strange step behaviour when no `min` is set for integer fields (Thanks @Pinpickle, see #3284)
+ - Fixed: Make sure we have the same amount of columns, always. (See #3228) 
+ - Added: Allow for filtering on 'taxonomies' on the overview pages. (See #3278)
+ - Added: Support for methods in `routing.yml` (see #3292)
+ - Fixed: Publishing for items with 'Timed Publish' is working again. (Fixes #3279)
+
+Bolt 2.1.4
+----------
+
+Released 2015-03-27. Notable changes:
+
+ - Never add extra jQueries on the backend. (See #3177)
+ - JS bugfixes (save button + goto publishing status) (See #3160)
+ - Flush the cache if the Bolt version has changed (See #3183)
+ - Fixed: Allow `|||`-queries to be more complex (Thanks @Pinpickle, see #3189)
+ - Fixed: Storage not using sort from contenttype (Thanks @CarsonF, see #3187)
+ - Change: Only log content not found errors if slug isn't numeric, since `next` and `previous` check by `id` (see #3186)
+ - Fixed: Make sure we use `ParsedownExtra`, instead of just `Parsedown`. (Thanks, @cooperaj, see #3194)
+ - Fixed: Changelog content uses correct tablenames. (See 3198)
+ - Change: Improve `shyphenate()`: Only add breaks to long words, instead of everywhere. (see #3221) 
+ - Fixed: Fix 'current' in menu. (see #3209)
+ - Fixed: `isallowed` checks for extensions to also check for `extensions:config` (Thanks @SahAssar, see #3249)
+ - Fixed: Allow 'name' in contenttype to override translation, for 2.1.x (see #3259)
+ - Fixed: Make `BaseExtension::initialize()` non-abstract again to deal with PHP < 5.3.10 (See #3257)
+
+Bolt 2.1.3
+----------
+
+Released 2015-03-18. Notable changes:
+
+ - Added: Added an option to delete a record, when editing it. (See #3134)
+ - Removed: removed "frontend permission checks". (#see 3133)
+ - Fixed: Prevent extra spaces in excerpts. (See #3130)
+ - Fixed: Show notice on update of Bolt. (See #3129)
+ - Fixed: Make dashboard activity log autoupdate again (see #3126)
+ - Added: Make the sanitisation of markdown fields configurable. (see #2992 #3142)
+ - Fixed: Fixed z-index of sidebar. (See #3100)
+ - Fixed: Disable "revert" button on 'edit file' screen, when file is not wrtiable. (See #3009)
+ - Added: Allow for multiple (fallback) locales in `config.yml`. (Thanks @sintemaa, see #3127)
+ - Fixed: Warning for unsaved content comes up when nothing has been changed (see #3077)
+ - Fixed: Be a little more strict in picking 'selected' options: Only use the fallback, if there's no valid id set. 
+ - Change: Lock composer.json to Symfony 2.6.4 as 2.6.5 fails PHPUnit
+ - Added: Re-added standalone jQuery lib, as some extensions might need it. 
+ - Fixed: Workaround, so we don't break on installations with `"require": []` in `extensions/composer.json` (see #3171)
+
+
+Bolt 2.1.1
+----------
+
+Released 2015-03-12. Notable changes:
+
+ - Added: Stop Finder from recursing common build folders and place a limit on the maximum depth it will recurse otherwise. (Thanks @Cooperaj, see #3069)
+ - Fixed: Removing default taxonomylink route leads to exception (See #3070)
+ - Fixed: Don't reset urls when adding base path. (See #3074)
+ - Fixed: Whoops error when duplicating a record. (See #3064)
+ - Fixed: Fixes broken extension installer (See #3086)
+ - Fixed: Redirect for backend trailing slash redirect (`/bolt` -> `/bolt/`) (See #3083)
+ - Fixed: Regression that errored on PHP < 5.3.6: `Remove SplFileInfo::getExtension()`. (See #3095)
+ - Fixed: Extension theme installer working properly (see #3108, thanks @nikgo)
+ - Fixed: Replacing `&nbsp;` with single space, instead of nothing. (See #3111)
+
+Bolt 2.1.0
+----------
+
+Released 2015-03-09. Notable changes:
 
 - Added: Allow for `https://` protocol in `canonical` setting in config.yml. (see #3044)
 - Added: Taiwanese (zh_TW) localisation. (#3022, thanks @Leon0824)

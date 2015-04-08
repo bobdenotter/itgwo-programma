@@ -9,10 +9,12 @@ use Bolt\Library as Lib;
 use Maid\Maid;
 use Silex;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class Content implements \ArrayAccess
 {
     protected $app;
+    protected $parsedown;
     public $id;
     public $values = array();
     public $taxonomy;
@@ -83,6 +85,8 @@ class Content implements \ArrayAccess
 
             $this->setValues($values);
         }
+
+        $this->parsedown = new \ParsedownExtra();
     }
 
     /**
@@ -536,13 +540,18 @@ class Content implements \ArrayAccess
         }
 
         // Make the 'key' of the array an absolute link to the taxonomy.
-        $link = $this->app['url_generator']->generate(
-            'taxonomylink',
-            array(
-                'taxonomytype' => $taxonomytype,
-                'slug'         => $slug,
-            )
-        );
+        try {
+            $link = $this->app['url_generator']->generate(
+                'taxonomylink',
+                array(
+                    'taxonomytype' => $taxonomytype,
+                    'slug'         => $slug,
+                )
+            );
+        } catch (RouteNotFoundException $e) {
+            // Fallback to unique key (yes, also a broken link)
+            $link = $taxonomytype . '/' . $slug;
+        }
 
         // Set the 'name', for displaying the pretty name, if there is any.
         if ($this->app['config']->get('taxonomy/' . $taxonomytype . '/options/' . $slug)) {
@@ -670,14 +679,20 @@ class Content implements \ArrayAccess
                     $value = $this->preParse($this->values[$name], $allowtwig);
 
                     // Parse the field as Markdown, return HTML
-                    $value = \ParsedownExtra::instance()->text($value);
+                    $value = $this->parsedown->text($value);
+
+                    $config = $this->app['config']->get('general/htmlcleaner');
+                    $allowed_tags = !empty($config['allowed_tags']) ? $config['allowed_tags'] :
+                        array('div', 'p', 'br', 'hr', 's', 'u', 'strong', 'em', 'i', 'b', 'li', 'ul', 'ol', 'blockquote', 'pre', 'code', 'tt', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'dd', 'dl', 'dt', 'table', 'tbody', 'thead', 'tfoot', 'th', 'td', 'tr', 'a', 'img');
+                    $allowed_attributes = !empty($config['allowed_attributes']) ? $config['allowed_attributes'] :
+                        array('id', 'class', 'name', 'value', 'href', 'src');
 
                     // Sanitize/clean the HTML.
                     $maid = new Maid(
                         array(
                             'output-format'   => 'html',
-                            'allowed-tags'    => array('html', 'head', 'body', 'section', 'div', 'p', 'br', 'hr', 's', 'u', 'strong', 'em', 'i', 'b', 'li', 'ul', 'ol', 'menu', 'blockquote', 'pre', 'code', 'tt', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'dd', 'dl', 'dh', 'table', 'tbody', 'thead', 'tfoot', 'th', 'td', 'tr', 'a', 'img'),
-                            'allowed-attribs' => array('id', 'class', 'name', 'value', 'href', 'src')
+                            'allowed-tags'    => $allowed_tags,
+                            'allowed-attribs' => $allowed_attributes
                         )
                     );
                     $value = $maid->clean($value);
@@ -931,6 +946,17 @@ class Content implements \ArrayAccess
         return preg_replace('/^([^?]*).*$/', '\\1', $link);
     }
 
+    /**
+     * Checks if the current record is set as the homepage.
+     */
+    public function isHome()
+    {
+        $homepage = $this->app['config']->get('general/homepage');
+
+        return (($this->contenttype['singular_slug'].'/'.$this->get('id') == $homepage) ||
+           ($this->contenttype['singular_slug'].'/'.$this->get('slug') == $homepage));
+    }
+
     protected function getRouteRequirementParams(array $route)
     {
         $params = array();
@@ -1163,7 +1189,7 @@ class Content implements \ArrayAccess
                 }
             }
 
-            $excerpt = str_replace('>', '> ', implode(' ', $excerptParts));
+            $excerpt = implode(' ', $excerptParts);
             $excerpt = Html::trimText(strip_tags($excerpt), $length);
         } else {
             $excerpt = '';

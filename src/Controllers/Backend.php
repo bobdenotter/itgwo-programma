@@ -553,30 +553,43 @@ class Backend implements ControllerProviderInterface
 
         $contenttype = $app['storage']->getContentType($contenttypeslug);
 
+        $filter = array();
+
+        $contentparameters = array('paging' => true, 'hydrate' => true);
+
         // Order has to be set carefully. Either set it explicitly when the user
         // sorts, or fall back to what's defined in the contenttype. The exception
         // is a contenttype that has a "grouping taxonomy", because that should
         // override it. The exception is handled in $app['storage']->getContent().
-        $order = $app['request']->query->get('order', $contenttype['sort']);
+        $contentparameters['order'] = $app['request']->query->get('order', $contenttype['sort']);
+        $contentparameters['page'] = $app['request']->query->get('page');
 
-        $page = $app['request']->query->get('page');
-        $filter = $app['request']->query->get('filter');
+        if ($app['request']->query->get('filter')) {
+            $contentparameters['filter'] = $app['request']->query->get('filter');
+            $filter[] = $app['request']->query->get('filter');
+        }
 
         // Set the amount of items to show per page.
         if (!empty($contenttype['recordsperpage'])) {
-            $limit = $contenttype['recordsperpage'];
+            $contentparameters['limit'] = $contenttype['recordsperpage'];
         } else {
-            $limit = $app['config']->get('general/recordsperpage');
+            $contentparameters['limit'] = $app['config']->get('general/recordsperpage');
         }
 
-        $multiplecontent = $app['storage']->getContent(
-            $contenttype['slug'],
-            array('limit' => $limit, 'order' => $order, 'page' => $page, 'filter' => $filter, 'paging' => true, 'hydrate' => true)
-        );
+        // Perhaps also filter on taxonomies
+        foreach($app['config']->get('taxonomy') as $taxonomykey => $taxonomy) {
+            if ($app['request']->query->get('taxonomy-' . $taxonomykey)) {
+                $contentparameters[$taxonomykey] = $app['request']->query->get('taxonomy-' . $taxonomykey);
+                $filter[] = $app['request']->query->get('taxonomy-' . $taxonomykey);
+            }
+        }
+
+        $multiplecontent = $app['storage']->getContent($contenttype['slug'], $contentparameters);
 
         $context = array(
             'contenttype'     => $contenttype,
             'multiplecontent' => $multiplecontent,
+            'filter'          => $filter
         );
 
         return $app['render']->render('overview/overview.twig', array('context' => $context));
@@ -914,8 +927,8 @@ class Backend implements ControllerProviderInterface
         }
 
         // Set the users and the current owner of this content.
-        if (empty($id)) {
-            // For brand-new items, the creator becomes the owner.
+        if (empty($id) || $duplicate) {
+            // For brand-new and duplicated items, the creator becomes the owner.
             $contentowner = $app['users']->getCurrentUser();
         } else {
             // For existing items, we'll just keep the current owner.
@@ -1224,13 +1237,13 @@ class Backend implements ControllerProviderInterface
 
             $currentuser = $app['users']->getCurrentUser();
 
-            if ($user['id'] == $currentuser['id'] && $user['username'] != $currentuser['username']) {
+            if ($user !== false && $user['id'] === $currentuser['id'] && $user['username'] !== $currentuser['username']) {
                 // If the current user changed their own login name, the session is effectively
                 // invalidated. If so, we must redirect to the login page with a flash message.
                 $app['session']->getFlashBag()->add('error', Trans::__('page.edit-users.message.change-self'));
 
                 return Lib::redirect('login');
-            } else {
+            } elseif ($user !== false) {
                 // Return to the 'Edit users' screen.
                 return Lib::redirect('users');
             }
@@ -1565,6 +1578,7 @@ class Backend implements ControllerProviderInterface
                     'file',
                     array(
                         'label' => Trans::__('Upload a file to this folder'),
+                        'multiple' => TRUE,
                         'attr'  => array(
                         'data-filename-placement' => 'inside',
                         'title'                   => Trans::__('Select file …'))
@@ -1577,6 +1591,7 @@ class Backend implements ControllerProviderInterface
                 $form->bind($request);
                 if ($form->isValid()) {
                     $files = $request->files->get($form->getName());
+                    $files = $files['FileUpload'];
 
                     foreach ($files as $fileToProcess) {
                         $fileToProcess = array(
@@ -1903,6 +1918,14 @@ class Backend implements ControllerProviderInterface
         // Sanity checks for doubles in in contenttypes.
         // unfortunately this has to be done here, because the 'translator' classes need to be initialised.
         $app['config']->checkConfig();
+
+        // If we had to reload the config earlier on because we detected a version change, display a notice.
+        if ($app['config']->notify_update) {
+            $notice = Trans::__("Detected Bolt version change to <b>%VERSION%</b>, and the cache has been cleared. Please <a href=\"%URI%\">check the database</a>, if you haven't done so already.",
+                array('%VERSION%' => $app->getVersion(), '%URI%' => $app['resources']->getUrl('bolt') . 'dbcheck'));
+            $app['logger.system']->notice(strip_tags($notice), array('event' => 'config'));
+            $app['session']->getFlashBag()->add('info', $notice);
+        }
 
         // Check the database users table exists
         $tableExists = $app['integritychecker']->checkUserTableIntegrity();

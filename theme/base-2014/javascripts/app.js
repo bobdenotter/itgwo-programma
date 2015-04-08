@@ -1,10 +1,5 @@
 $(document).ready(function() {
     $(document).foundation();
-
-
-    $("#speeltijden").tablesorter();
-
-
 });
 
 // Initialize the Magnific popup shizzle. Fancybox is still here as a trigger, for backwards compatibility.
