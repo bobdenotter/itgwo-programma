@@ -1,11 +1,27 @@
-{% include '_header.twig' %}
+<!DOCTYPE html>
+<html class="no-js" lang="{{ htmllang() }}">
+<head>
+    <meta charset="utf-8" />
 
-<!-- Main Page Content and Sidebar -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% if record.title is defined %}{{ record.title|striptags }} | {% endif %}
+      {{ app.config.get('general/sitename') }}
+      {% if record.title is not defined and app.config.get('general/payoff') %} | {{ app.config.get('general/payoff') }}{% endif %}
+    </title>
 
-    <!-- Main Blog Content -->
-    <div class="large-8 columns" role="content">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
 
-        <article>
+    <link rel="stylesheet" href="{{ paths.theme }}css/foundation.css">
+    <link rel="stylesheet" href="{{ paths.theme }}css/app.css">
+    <link rel="stylesheet" href="{{ paths.theme }}css/magnific-popup.css">
+
+
+</head>
+<body>
+
+<div class="row">
+    <div class="container large-12 columns" role="content">
 
             <h2>{{ record.title }}</h2>
             
@@ -13,12 +29,18 @@
 
             {{ simpleform('contact') }}
 
-        </article>
-
-
     </div>
+</div>
 
-    <!-- End Main Content and Sidebar -->
+    <script src="{{ paths.theme }}javascripts/jquery-2.1.0.min.js"></script>
+    <script src="{{ paths.theme }}javascripts/foundation.min.js"></script>
+    <script src="{{ paths.theme }}javascripts/modernizr.js"></script>
 
+    {# Bolt comes with Magnific Popup, as it's used in the backend. We can use it here, or you can
+       just swap it out for the image-viewing script of your choice. Or delete it altogether. #}
+    <script src="{{ paths.theme }}javascripts/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="{{ paths.theme }}/javascripts/jquery.tablesorter.js"></script>
+    <script src="{{ paths.theme }}javascripts/app.js" async defer></script>
 
-    {% include '_footer.twig' %}
+</body>
+</html>
