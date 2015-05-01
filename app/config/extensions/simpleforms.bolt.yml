@@ -44,25 +44,31 @@ from_name: Info
 testmode : true
 testmode_recipient: lodewijk@twokings.nl
 
+#debugmode: true
+
 # from_email and from_name can be set for picky SMTP servers
 
 # A simple contact form. Use as {{ simpleform('contact') }} in your templates.
 contact:
-  recipient_email: lodewijk@twokings.nl
-  recipient_name: Info
+  recipient_email: peter@greatwideopen.nl
+  recipient_name: Peter Boorsma
+  insert_into_table: bolt_contactform
   fields:
     name:
       type: text
       label: Naam
       required: true
-      placeholder: Naam
+      placeholder: Je naam
     email:
       type: email
       label: E-mail adress
-      required: true
       placeholder: Je e-mail adres
     message:
       type: textarea
       required: true
       label: Je vraag, opmerking of bericht
       placeholder: Je vraag, opmerking of bericht
+    log_ip:
+      type: ip
+    log_useragent:
+      type: useragent
