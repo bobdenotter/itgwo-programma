@@ -41,7 +41,7 @@ from_name: Info
 # for development all email will be sent to this address
 # all other recipient and cc addresses will be ignored
 # remove or set 'testmode' to false for a production site
-testmode : true
+testmode : false
 testmode_recipient: lodewijk@twokings.nl
 
 #debugmode: true
