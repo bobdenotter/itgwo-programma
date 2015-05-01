@@ -1,6 +1,3 @@
-
-
-
 speeltijden:
     name: Speeltijden
     singular_name: Speeltijd
@@ -254,5 +251,27 @@ programmaonderdelen:
     taxonomy: [ tags, programmatypen ]
     recordsperpage: 20
 
-
-
+pagina:
+    name: Paginas
+    singular_name: Pagina
+    slug: paginas
+    singular_slug: pagina
+    description: "Losse paginas die gebruikt worden voor onderdelen als het contact formulier"
+    fields:
+        title:
+            type: text
+            class: large
+            group: content
+        slug:
+            type: slug
+            uses: title
+        body:
+            type: html
+        image:
+            type: image
+            group: media
+        template:
+            type: templateselect
+    record_template: record.twig
+    listing_template: listing.twig
+    show_on_dashboard: false

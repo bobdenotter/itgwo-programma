@@ -206,13 +206,14 @@ wysiwyg:
 # by default, mail is sent using PHP's built-in mail function. In general, it's advised to use SMTP for sending mail
 # instead. Uncomment the following lines to use an SMTP server with authentication.
 # Please check http://silex.sensiolabs.org/doc/providers/swiftmailer.html for a full range of options
-#mailoptions:
-#  host: localhost
-#  port: 25
-#  username: username
-#  password: password
-#  encryption: null
-#  auth_mode: null
+mailoptions:
+  host: localhost
+  port: 25
+  username: greatwide
+  password: cret24khyt
+  encryption: null
+  auth_mode: null
+
 
 # Bolt allows some modifications to how 'strict' login sessions are. For every option
 # that is set to true, it becomes harder for a bad-willing person to spoof your login
