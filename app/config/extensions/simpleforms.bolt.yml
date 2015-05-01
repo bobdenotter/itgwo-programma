@@ -53,6 +53,8 @@ contact:
   recipient_email: peter@greatwideopen.nl
   recipient_name: Peter Boorsma
   insert_into_table: bolt_contactform
+  button_text: Send
+  mail_subject: "itgwo programma app contactformulier inzending"
   fields:
     name:
       type: text
