@@ -1,0 +1,4 @@
+1430481801
+a:1:{s:11:"information";O:8:"stdClass":11:{s:2:"id";s:2:"33";s:4:"slug";s:17:"bolt-217-released";s:11:"datecreated";s:19:"2015-04-29 08:19:02";s:11:"datechanged";s:19:"2015-04-29 08:19:02";s:8:"username";s:0:"";s:6:"status";s:9:"published";s:5:"title";s:20:"Bolt 2.1.7 released.";s:6:"teaser";s:422:"<p>As part of our ongoing maintenance for Bolt 2.1, we've resolved some issues, quirks and bugs that have been discovered. This release has a small list of changes, but we've fixes two issues regarding Cookies and Timezone settings. If you bumped in to these quirks, updating to 2.1.7 will resolve them. See&nbsp;<a href="https://bolt.cm/newsitem/bolt-2-1-7-released">the post on the site</a>&nbsp;for details.<br>
+
+</p>";s:4:"link";s:44:"https://bolt.cm/newsitem/bolt-2-1-7-released";s:4:"type";s:4:"news";s:14:"target_version";s:0:"";}}

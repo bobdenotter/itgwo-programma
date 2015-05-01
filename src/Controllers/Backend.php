@@ -733,7 +733,7 @@ class Backend implements ControllerProviderInterface
 
             // If we have an ID now, this is an existing record
             if ($id) {
-                $content = $app['storage']->getContent($contenttype['slug'], array('id' => $id));
+                $content = $app['storage']->getContent($contenttype['slug'], array('id' => $id, 'status' => '!'));
                 $oldStatus = $content['status'];
                 $newStatus = $content['status'];
             } else {
@@ -825,7 +825,7 @@ class Backend implements ControllerProviderInterface
                         }
 
                         // Get our record after POST_SAVE hooks are dealt with and return the JSON
-                        $content = $app['storage']->getContent($contenttype['slug'], array('id' => $id, 'returnsingle' => true));
+                        $content = $app['storage']->getContent($contenttype['slug'], array('id' => $id, 'returnsingle' => true, 'status' => '!'));
 
                         $val = array();
 
@@ -935,15 +935,12 @@ class Backend implements ControllerProviderInterface
             $contentowner = $app['users']->getUser($content['ownerid']);
         }
 
+        $filesystem = $app['filesystem']->getFilesystem();
+
         // Test write access for uploadable fields
         foreach ($contenttype['fields'] as $key => &$values) {
             if (isset($values['upload'])) {
-                $canUpload = $app['filesystem']->getFilesystem()->getVisibility($values['upload']);
-                if ($canUpload === 'public') {
-                    $values['canUpload'] = true;
-                } else {
-                    $values['canUpload'] = false;
-                }
+                $values['canUpload'] = $filesystem->has($values['upload']) && $filesystem->getVisibility($values['upload']);
             } else {
                 $values['canUpload'] = true;
             }
@@ -1024,7 +1021,7 @@ class Backend implements ControllerProviderInterface
     {
         $contenttype = $app['storage']->getContentType($contenttypeslug);
 
-        $content = $app['storage']->getContent($contenttype['slug'] . "/" . $id);
+        $content = $app['storage']->getContent($contenttype['slug'], array('id' => $id, 'status' => '!'));
         $title = $content->getTitle();
 
         if (!$app['users']->isAllowed("contenttype:{$contenttype['slug']}:delete:$id")) {

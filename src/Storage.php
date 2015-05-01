@@ -1101,16 +1101,17 @@ class Storage
 
             // Check if there are any records that need depublishing.
             $stmt = $this->app['db']->executeQuery(
-                "SELECT id FROM $tablename WHERE status = 'published' and datedepublish <= :now and datedepublish > '1900-01-01 00:00:01' and datechanged < datedepublish",
-                array('now' => $now)
+                "SELECT id FROM $tablename WHERE status = 'published' and datedepublish <= CURRENT_TIMESTAMP and datedepublish > '1900-01-01 00:00:01' and datechanged < datedepublish"
             );
 
             // If there's a result, we need to set these to 'held'.
             if ($stmt->fetch() !== false) {
-                $this->app['db']->query(
-                    "UPDATE $tablename SET status = 'held', datechanged = :now WHERE status = 'published' and datedepublish <= :now and datedepublish > '1900-01-01 00:00:01' and datechanged < datedepublish",
-                    array('now' => $now)
+                $query = sprintf(
+                    "UPDATE %s SET status = 'held', datechanged = '%s' WHERE status = 'published' and datedepublish <= CURRENT_TIMESTAMP and datedepublish > '1900-01-01 00:00:01' and datechanged < datedepublish",
+                    $tablename,
+                    date('Y-m-d H:i:s')
                 );
+                $this->app['db']->query($query);
             }
         } catch (DBALException $e) {
             $message = "Timed de-publication of records for $contenttype failed: " . $e->getMessage();
@@ -1241,7 +1242,7 @@ class Storage
 
         // When using from the frontend, we assume (by default) that we only want published items,
         // unless something else is specified explicitly
-        if (isset($this->app['end']) && $this->app['end'] == "frontend" && empty($ctypeParameters['status'])) {
+        if (isset($this->app['end']) && $this->app['end'] != "backend" && empty($ctypeParameters['status'])) {
             $ctypeParameters['status'] = "published";
         }
 

@@ -1,0 +1,73 @@
+{% include '_header.twig' %}
+
+<!-- Main Page Content and Sidebar -->
+
+<!-- Main Blog Content -->
+<div class="large-12 columns">
+
+    <article>
+
+        <h2>{{ record.title }}</h2>
+
+        {% if record.image!="" %}
+            <div class="large-4 columns imageholder">
+                <a href="{{ image(record.image) }}">
+                    <img src="{{ thumbnail(record.image, 400, 260) }}">
+                </a>
+            </div>
+        {% endif %}
+
+        {{ record.teaser }}
+
+        <h1>Programma</h1>
+
+        {% setcontent speeltijden = "speeltijden" where { 'programmas': record.slug } orderby 'starttijd' %}
+
+        <table id="speeltijden" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Naam</th>
+                    <th>Speeltijd</th>
+                    <th>Speelduur</th>
+                    <th>locatie</th>
+                    <th>link</th>
+                    <th>bewerk</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for speeltijd in speeltijden %}
+                <tr>
+                    <td>{{ speeltijd.title }}</td>
+                    <td>{{ speeltijd.starttijd }}</td>
+                    <td>{{ speeltijd.lengte }} minuten</td>
+                    <td>{{ speeltijd.speellokatie }}</td>
+                    <td>
+                        Link: <a href="/programmaonderdeel/{{speeltijd.programmaonderdelen}}">
+                        {{speeltijd.programmaonderdelen|default('geen')}}</a>
+                    </td>
+                    <td>
+                        <a href="/bolt/editcontent/speeltijden/{{speeltijd.id}}">bewerk</a>
+                    </td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+
+        <br>
+        <p>Protip: Klik the kolomhoofden om de tabel te sorteren. </p>
+
+
+    </article>
+
+
+</div>
+
+    <!-- End Main Content -->
+
+
+
+
+    {% include '_footer.twig' %}

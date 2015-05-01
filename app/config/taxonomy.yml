@@ -38,6 +38,9 @@ locaties:
       bospodium: "Naar Buiten"
       vuurboetsduin: "Vuurboetsduin"
       fortweg: "Fortweg"
+      havenplein: "Havenplein"
+      sporthal: "Sporthal"
+      strand: "Strand"
 
 tags:
     slug: tags

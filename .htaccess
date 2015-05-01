@@ -3,7 +3,6 @@ DirectoryIndex index.php index.html index.htm
 
 # Prevent directory listing
 Options -Indexes
-Options +FollowSymLinks
 
 # Make sure MultiViews is disabled if available.
 <IfModule mod_negotiation.c>
