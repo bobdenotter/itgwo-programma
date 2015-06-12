@@ -65,9 +65,8 @@ This is a list of common pitfalls on using Composer, and how to avoid them.
 
 ## Need to override a package version
 
-Let say your project depends on package A which in turn depends on a specific
-version of package B (say 0.1) and you need a different version of that
-package - version 0.11.
+Let's say your project depends on package A, which in turn depends on a specific
+version of package B (say 0.1). But you need a different version of said package B (say 0.11).
 
 You can fix this by aliasing version 0.11 to 0.1:
 
@@ -92,7 +91,7 @@ If composer shows memory errors on some commands:
 
 The PHP `memory_limit` should be increased.
 
-> **Note:** Composer internally increases the `memory_limit` to `512M`.
+> **Note:** Composer internally increases the `memory_limit` to `1G`.
 > If you have memory issues when using composer, please consider [creating
 > an issue ticket](https://github.com/composer/composer/issues) so we can look into it.
 
@@ -106,7 +105,7 @@ Try increasing the limit in your `php.ini` file (ex. `/etc/php5/cli/php.ini` for
 Debian-like systems):
 
 ```ini
-; Use -1 for unlimited or define an explicit value like 512M
+; Use -1 for unlimited or define an explicit value like 2G
 memory_limit = -1
 ```
 

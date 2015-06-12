@@ -196,6 +196,11 @@ EOT
                     $width--;
                 }
 
+                if ($input->getOption('path') && null === $composer) {
+                    $this->getIO()->writeError('No composer.json found in the current directory, disabling "path" option');
+                    $input->setOption('path', false);
+                }
+
                 $writePath = !$input->getOption('name-only') && $input->getOption('path');
                 $writeVersion = !$input->getOption('name-only') && !$input->getOption('path') && $showVersion && ($nameLength + $versionLength + 3 <= $width);
                 $writeDescription = !$input->getOption('name-only') && !$input->getOption('path') && ($nameLength + ($showVersion ? $versionLength : 0) + 24 <= $width);
@@ -302,7 +307,7 @@ EOT
                 : null;
 
             $this->getIO()->writeError(
-                sprintf('<error>Attention: This package is abandoned and no longer maintained.%s</error>', $replacement)
+                sprintf('<warning>Attention: This package is abandoned and no longer maintained.%s</warning>', $replacement)
             );
         }
 

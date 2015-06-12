@@ -157,7 +157,7 @@ The recommended notation for the most common licenses is (alphabetical):
 - MIT
 
 Optional, but it is highly recommended to supply this. More identifiers are
-listed at the [SPDX Open Source License Registry](http://www.spdx.org/licenses/).
+listed at the [SPDX Open Source License Registry](https://www.spdx.org/licenses/).
 
 For closed-source software, you may use `"proprietary"` as the license identifier.
 
@@ -235,11 +235,12 @@ Various information to get support about the project.
 Support information includes the following:
 
 * **email:** Email address for support.
-* **issues:** URL to the Issue Tracker.
-* **forum:** URL to the Forum.
-* **wiki:** URL to the Wiki.
+* **issues:** URL to the issue tracker.
+* **forum:** URL to the forum.
+* **wiki:** URL to the wiki.
 * **irc:** IRC channel for support, as irc://server/channel.
 * **source:** URL to browse or download the sources.
+* **docs:** URL to the documentation.
 
 An example:
 
@@ -703,7 +704,7 @@ Example:
         },
         {
             "type": "pear",
-            "url": "http://pear2.php.net"
+            "url": "https://pear2.php.net"
         },
         {
             "type": "package",
@@ -715,7 +716,7 @@ Example:
                     "type": "zip"
                 },
                 "source": {
-                    "url": "http://smarty-php.googlecode.com/svn/",
+                    "url": "https://smarty-php.googlecode.com/svn/",
                     "type": "svn",
                     "reference": "tags/Smarty_3_1_7/distribution/"
                 }
@@ -903,11 +904,13 @@ An example:
 If you have a testing branch, that is heavily maintained during a testing phase and is
 deployed to your staging environment, normally "composer show -s" will give you `versions : * dev-master`.
 
-If you configure latest-.* as a pattern for non-feature-branches like this:
+If you configure `latest-.*` as a pattern for non-feature-branches like this:
 
-    {
-        "non-feature-branches": ["latest-.*"]
-    }
+```json
+{
+    "non-feature-branches": ["latest-.*"]
+}
+```
 
 Then "composer show -s" will give you `versions : * dev-latest-testing`.
 

@@ -290,6 +290,16 @@ EOT
             $directory = getcwd() . DIRECTORY_SEPARATOR . array_pop($parts);
         }
 
+        // handler Ctrl+C for unix-like systems
+        if (function_exists('pcntl_signal')) {
+            declare(ticks = 100);
+            pcntl_signal(SIGINT, function() use ($directory) {
+                $fs = new Filesystem();
+                $fs->removeDirectory($directory);
+                exit(130);
+            });
+        }
+
         $io->writeError('<info>Installing ' . $package->getName() . ' (' . VersionParser::formatVersion($package, false) . ')</info>');
 
         if ($disablePlugins) {
@@ -358,8 +368,8 @@ EOT
                 break;
         }
 
-        if ($input->getOption('prefer-source') || $input->getOption('prefer-dist')) {
-            $preferSource = $input->getOption('prefer-source');
+        if ($input->getOption('prefer-source') || $input->getOption('prefer-dist') || $input->getOption('keep-vcs')) {
+            $preferSource = $input->getOption('prefer-source') || $input->getOption('keep-vcs');
             $preferDist = $input->getOption('prefer-dist');
         }
     }

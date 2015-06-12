@@ -264,7 +264,7 @@ class Installer
 
             $this->io->writeError(
                 sprintf(
-                    "<error>Package %s is abandoned, you should avoid using it. %s.</error>",
+                    "<warning>Package %s is abandoned, you should avoid using it. %s.</warning>",
                     $package->getPrettyName(),
                     $replacement
                 )
@@ -968,7 +968,11 @@ class Installer
 
                 // update the dist and source URLs
                 $package->setSourceUrl($newPackage->getSourceUrl());
-                $package->setDistUrl($newPackage->getDistUrl());
+                // only update dist url for github dists as they use a combination of dist url + dist reference to install
+                // but for other urls this is ambiguous and could result in bad outcomes
+                if (preg_match('{^https?://(api\.)?github\.com/}', $newPackage->getDistUrl())) {
+                    $package->setDistUrl($newPackage->getDistUrl());
+                }
             }
         }
     }
