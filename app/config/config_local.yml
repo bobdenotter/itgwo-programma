@@ -4,10 +4,10 @@ database:
   username: greatwide_progrm
   password: NoNygxESU
 
-
+homepage: pagina/itgwo
+homepage_template: homepage.twig
+notfound: pagina/itgwo
 
 debug: true
 
-maintenance_mode: true
-maintenance_template: maintenance_default.twig
-
+maintenance_mode: false

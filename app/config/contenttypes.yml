@@ -64,7 +64,7 @@ speeltijden:
                 vuurboetsduin: 'Vuurboetsduin'
     viewless: true
     default_status: published
-    sort: -starttijd
+    sort: starttijd
 
 
 programmas:

@@ -65,6 +65,8 @@ class Extension extends \Bolt\BaseExtension
 
         // Enable pagination
         $options['paging'] = true;
+        // $options['hydrat'] = true;
+        // $options['printquery'] = true;
         $pager = [];
         $where = [];
 
@@ -160,6 +162,11 @@ class Extension extends \Bolt\BaseExtension
                     );
             }
 
+            if (in_array($field['type'], array('date', 'datetime')) && $this->config['date-as-timestamp'] && !empty($values[$key])) {
+                $date = \DateTime::createFromFormat('Y-m-d H:i:s', $values[$key]);
+                // dump($values);
+                $values[$key] = $date->format('c');
+            }
 
 
             if ($field['type'] == 'image' && isset($values[$key]) && is_array($this->config['thumbnail'])) {

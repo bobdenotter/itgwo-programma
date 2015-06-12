@@ -15,11 +15,28 @@ contenttypes:
         # This will include all user-defined fields and the ID in the listing,
         # but not any of the fields Bolt adds to all content types, such as
         # 'datecreated'.
+    speeltijden:
+        order: title
+        # limit: 5
+        list-fields: [ title, slug, starttijd, lengte, speellokatie, programmaonderdelen ]
+        where-clause:
+            starttijd: '2015%'
+            speellokatie: '!'
+            # printquery: true
+    programmaonderdelen:
+        # limit: 5
+        list-fields: [ title, slug, starttijd, lengte, speellokatie ]
+        thumbnail:
+            width: 640
+            height: 480
+
 
 thumbnail:
-    width: 400
-    height: 300
+    width: 240
+    height: 180
 
 headers:
     'Access-Control-Allow-Origin': '*'
     'Content-Type': 'application/json'
+
+date-as-timestamp: true
