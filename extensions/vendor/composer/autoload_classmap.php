@@ -6,4 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Bolt\\Composer\\ExtensionInstaller' => $baseDir . '/ExtensionInstaller.php',
+    'Bolt\\Extension\\Bolt\\SimpleForms\\Extension' => $vendorDir . '/bolt/simpleforms/Extension.php',
+    'JSONAPI\\Extension' => $baseDir . '/local/bolt/jsonapi/Extension.php',
 );

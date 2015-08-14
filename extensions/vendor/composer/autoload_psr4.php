@@ -6,6 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'JSONAPI\\' => array($baseDir . '/local/bolt/jsonapi'),
     'Bolt\\Extension\\Bolt\\SimpleForms\\' => array($vendorDir . '/bolt/simpleforms'),
     'Bolt\\Composer\\' => array($baseDir . '/'),
 );

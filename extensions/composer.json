@@ -13,14 +13,15 @@
         "preferred-install": "dist"
     },
     "provide": {
-        "bolt/bolt": "2.2.2"
+        "bolt/bolt": "2.2.8"
     },
     "extra": {
         "bolt-web-path": ".././"
     },
     "autoload": {
         "psr-4": {
-            "Bolt\\Composer\\": ""
+            "Bolt\\Composer\\": "",
+            "JSONAPI\\": "local/bolt/jsonapi/"
         }
     },
     "scripts": {
