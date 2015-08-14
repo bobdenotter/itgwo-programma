@@ -31,6 +31,7 @@ class __TwigTemplate_4f294a0c34fdf491c1a9dbb43f06b631c0f7e5740e94b841280a353faaa
         $context = $this->env->mergeGlobals(array(
             "items" => $__items__,
             "ommit_empty" => $__ommit_empty__,
+            "varargs" => func_num_args() > 2 ? array_slice(func_get_args(), 2) : array(),
         ));
 
         $blocks = array();
@@ -67,6 +68,7 @@ class __TwigTemplate_4f294a0c34fdf491c1a9dbb43f06b631c0f7e5740e94b841280a353faaa
         $context = $this->env->mergeGlobals(array(
             "contenttype_slug" => $__contenttype_slug__,
             "content_id" => $__content_id__,
+            "varargs" => func_num_args() > 2 ? array_slice(func_get_args(), 2) : array(),
         ));
 
         $blocks = array();
@@ -103,6 +105,7 @@ class __TwigTemplate_4f294a0c34fdf491c1a9dbb43f06b631c0f7e5740e94b841280a353faaa
         $context = $this->env->mergeGlobals(array(
             "contenttype_slug" => $__contenttype_slug__,
             "content_id" => $__content_id__,
+            "varargs" => func_num_args() > 2 ? array_slice(func_get_args(), 2) : array(),
         ));
 
         $blocks = array();
@@ -139,6 +142,6 @@ class __TwigTemplate_4f294a0c34fdf491c1a9dbb43f06b631c0f7e5740e94b841280a353faaa
 
     public function getDebugInfo()
     {
-        return array (  116 => 39,  113 => 38,  101 => 37,  86 => 26,  80 => 24,  77 => 23,  65 => 22,  53 => 12,  47 => 10,  44 => 9,  41 => 8,  29 => 7,  23 => 29,  19 => 14,);
+        return array (  119 => 39,  116 => 38,  103 => 37,  88 => 26,  82 => 24,  79 => 23,  66 => 22,  54 => 12,  48 => 10,  45 => 9,  42 => 8,  29 => 7,  23 => 29,  19 => 14,);
     }
 }

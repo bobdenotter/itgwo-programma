@@ -32,7 +32,7 @@ class Application extends Silex\Application
      */
     public function __construct(array $values = array())
     {
-        $values['bolt_version'] = '2.2.2';
+        $values['bolt_version'] = '2.2.8';
         $values['bolt_name'] = '';
         $values['bolt_released'] = true; // `true` for stable releases, `false` for alpha, beta and RC.
 
@@ -329,7 +329,10 @@ class Application extends Silex\Application
 
         $this->register(
             new Silex\Provider\TranslationServiceProvider(),
-            array('locale_fallbacks' => array(Application::DEFAULT_LOCALE))
+            array(
+                'translator.cache_dir' => $this['resources']->getPath('cache/trans'),
+                'locale_fallbacks'     => array(Application::DEFAULT_LOCALE)
+                )
         );
 
         // Loading stub functions for when intl / IntlDateFormatter isn't available.

@@ -19,6 +19,7 @@ return array(
     'GuzzleHttp\\Ring\\' => array($vendorDir . '/guzzlehttp/ringphp/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),
     'Eloquent\\Pathogen\\' => array($vendorDir . '/bolt/pathogen/src'),
+    'Composer\\Spdx\\' => array($vendorDir . '/composer/spdx-licenses/src'),
     'Cocur\\Slugify\\' => array($vendorDir . '/cocur/slugify/src'),
     'Bolt\\Thumbs\\Tests\\' => array($vendorDir . '/bolt/thumbs/tests'),
     'Bolt\\Thumbs\\' => array($vendorDir . '/bolt/thumbs/src'),

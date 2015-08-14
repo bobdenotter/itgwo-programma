@@ -154,6 +154,8 @@ programma:
     icon_many: "fa:music"
     icon_one: "fa:music"
 
+
+
 programmaonderdelen:
     name: Programmaonderdelen
     singular_name: Programmaonderdeel
@@ -196,15 +198,16 @@ programmaonderdelen:
             group: Media
             postfix: "<hr>"
         embed:
-            type: text
+            type: textarea
             variant: inline
             label: Ruimte voor een embedcode (bijv. Soundcloud)
             group: Media
+            height: 40px
         spotify_link:
             type: text
             variant: inline
             label: Spotify url (http link)
-            group: Media        
+            group: Media
         oldvideo:
             type: text
             variant: inline
@@ -223,7 +226,7 @@ programmaonderdelen:
     recordsperpage: 100
     icon_many: "fa:music"
     icon_one: "fa:music"
-
+    
 speeltijden:
     name: Speeltijden
     singular_name: Speeltijd

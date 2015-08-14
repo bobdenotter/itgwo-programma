@@ -47,7 +47,9 @@ class __TwigTemplate_996718e798ba8c0696e92090396896ecb4be1ff20679d97f78f0b1ffa3c
     // line 1
     public function getflashbag()
     {
-        $context = $this->env->getGlobals();
+        $context = $this->env->mergeGlobals(array(
+            "varargs" => func_num_args() > 0 ? array_slice(func_get_args(), 0) : array(),
+        ));
 
         $blocks = array();
 
@@ -88,6 +90,7 @@ class __TwigTemplate_996718e798ba8c0696e92090396896ecb4be1ff20679d97f78f0b1ffa3c
         $context = $this->env->mergeGlobals(array(
             "key" => $__key__,
             "class" => $__class__,
+            "varargs" => func_num_args() > 2 ? array_slice(func_get_args(), 2) : array(),
         ));
 
         $blocks = array();
@@ -148,6 +151,6 @@ class __TwigTemplate_996718e798ba8c0696e92090396896ecb4be1ff20679d97f78f0b1ffa3c
 
     public function getDebugInfo()
     {
-        return array (  125 => 19,  122 => 18,  120 => 17,  115 => 15,  109 => 13,  106 => 12,  101 => 11,  98 => 10,  86 => 9,  73 => 6,  69 => 5,  65 => 4,  60 => 3,  57 => 2,  48 => 1,  40 => 30,  33 => 26,  29 => 24,  27 => 23,  25 => 22,  22 => 21,  19 => 8,);
+        return array (  128 => 19,  125 => 18,  123 => 17,  118 => 15,  112 => 13,  109 => 12,  104 => 11,  101 => 10,  88 => 9,  75 => 6,  71 => 5,  67 => 4,  62 => 3,  59 => 2,  48 => 1,  40 => 30,  33 => 26,  29 => 24,  27 => 23,  25 => 22,  22 => 21,  19 => 8,);
     }
 }

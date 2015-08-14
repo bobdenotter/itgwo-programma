@@ -72,6 +72,7 @@ class __TwigTemplate_82bfa8c9403b8ee5b3f732f9a55a66b411c9cc370b20a5e090dda73ceaf
     {
         $context = $this->env->mergeGlobals(array(
             "user" => $__user__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -105,6 +106,7 @@ class __TwigTemplate_82bfa8c9403b8ee5b3f732f9a55a66b411c9cc370b20a5e090dda73ceaf
             "contenttype" => $__contenttype__,
             "title" => $__title__,
             "content_id" => $__content_id__,
+            "varargs" => func_num_args() > 3 ? array_slice(func_get_args(), 3) : array(),
         ));
 
         $blocks = array();
@@ -137,6 +139,7 @@ class __TwigTemplate_82bfa8c9403b8ee5b3f732f9a55a66b411c9cc370b20a5e090dda73ceaf
         $context = $this->env->mergeGlobals(array(
             "contenttype" => $__contenttype__,
             "content" => $__content__,
+            "varargs" => func_num_args() > 2 ? array_slice(func_get_args(), 2) : array(),
         ));
 
         $blocks = array();
@@ -168,6 +171,7 @@ class __TwigTemplate_82bfa8c9403b8ee5b3f732f9a55a66b411c9cc370b20a5e090dda73ceaf
     {
         $context = $this->env->mergeGlobals(array(
             "d" => $__d__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -195,6 +199,7 @@ class __TwigTemplate_82bfa8c9403b8ee5b3f732f9a55a66b411c9cc370b20a5e090dda73ceaf
     {
         $context = $this->env->mergeGlobals(array(
             "field" => $__field__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -220,6 +225,7 @@ class __TwigTemplate_82bfa8c9403b8ee5b3f732f9a55a66b411c9cc370b20a5e090dda73ceaf
     {
         $context = $this->env->mergeGlobals(array(
             "attributes" => $__attributes__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -329,6 +335,7 @@ $context["attrname"] == "checked")) {
             "label" => $__label__,
             "infoid" => $__infoid__,
             "afterlabel" => $__afterlabel__,
+            "varargs" => func_num_args() > 3 ? array_slice(func_get_args(), 3) : array(),
         ));
 
         $blocks = array();
@@ -381,6 +388,7 @@ $context["attrname"] == "checked")) {
             "field" => $__field__,
             "class" => $__class__,
             "for" => $__for__,
+            "varargs" => func_num_args() > 4 ? array_slice(func_get_args(), 4) : array(),
         ));
 
         $blocks = array();
@@ -431,6 +439,7 @@ $context["attrname"] == "checked")) {
             "icon" => $__icon__,
             "text" => $__text__,
             "confirmation_text" => $__confirmation_text__,
+            "varargs" => func_num_args() > 5 ? array_slice(func_get_args(), 5) : array(),
         ));
 
         $blocks = array();
@@ -489,6 +498,7 @@ $context["attrname"] == "checked")) {
     {
         $context = $this->env->mergeGlobals(array(
             "types" => $__types__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -524,6 +534,7 @@ $context["attrname"] == "checked")) {
     {
         $context = $this->env->mergeGlobals(array(
             "file" => $__file__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -563,6 +574,7 @@ $context["attrname"] == "checked")) {
     {
         $context = $this->env->mergeGlobals(array(
             "opt" => $__opt__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -571,7 +583,7 @@ $context["attrname"] == "checked")) {
         try {
             // line 134
             echo "    ";
-            $context["__internal_57a1c65f0cc647dc6d08bdafad54efb15eb47631ce94b2bfa05d8410d1841f2c"] = $this;
+            $context["__internal_a1ab1ca4150a6556df841fe45b13bb7beb0fec9a0536b59ac8029b10c87a480d"] = $this;
             // line 135
             echo "
     ";
@@ -608,7 +620,7 @@ $context["attrname"] == "checked")) {
             echo "
     <input";
             // line 165
-            echo $context["__internal_57a1c65f0cc647dc6d08bdafad54efb15eb47631ce94b2bfa05d8410d1841f2c"]->getattr((isset($context["attr_data"]) ? $context["attr_data"] : null));
+            echo $context["__internal_a1ab1ca4150a6556df841fe45b13bb7beb0fec9a0536b59ac8029b10c87a480d"]->getattr((isset($context["attr_data"]) ? $context["attr_data"] : null));
             echo ">
     <div class=\"input-group\">
         <span class=\"input-group-btn\">
@@ -618,14 +630,14 @@ $context["attrname"] == "checked")) {
         </span>
         <input";
             // line 172
-            echo $context["__internal_57a1c65f0cc647dc6d08bdafad54efb15eb47631ce94b2bfa05d8410d1841f2c"]->getattr((isset($context["attr_date"]) ? $context["attr_date"] : null));
+            echo $context["__internal_a1ab1ca4150a6556df841fe45b13bb7beb0fec9a0536b59ac8029b10c87a480d"]->getattr((isset($context["attr_date"]) ? $context["attr_date"] : null));
             echo ">
         ";
             // line 173
             if (( !$this->getAttribute((isset($context["opt"]) ? $context["opt"] : null), "has_time", array(), "any", true, true) || ($this->getAttribute((isset($context["opt"]) ? $context["opt"] : null), "has_time", array()) != false))) {
                 // line 174
                 echo "            <input";
-                echo $context["__internal_57a1c65f0cc647dc6d08bdafad54efb15eb47631ce94b2bfa05d8410d1841f2c"]->getattr((isset($context["attr_time"]) ? $context["attr_time"] : null));
+                echo $context["__internal_a1ab1ca4150a6556df841fe45b13bb7beb0fec9a0536b59ac8029b10c87a480d"]->getattr((isset($context["attr_time"]) ? $context["attr_time"] : null));
                 echo ">
         ";
             }
@@ -649,6 +661,7 @@ $context["attrname"] == "checked")) {
     {
         $context = $this->env->mergeGlobals(array(
             "datetime" => $__datetime__,
+            "varargs" => func_num_args() > 1 ? array_slice(func_get_args(), 1) : array(),
         ));
 
         $blocks = array();
@@ -686,6 +699,7 @@ $context["attrname"] == "checked")) {
             "attr_upload" => $__attr_upload__,
             "uploadpath" => $__uploadpath__,
             "canUpload" => $__canUpload__,
+            "varargs" => func_num_args() > 5 ? array_slice(func_get_args(), 5) : array(),
         ));
 
         $blocks = array();
@@ -694,7 +708,7 @@ $context["attrname"] == "checked")) {
         try {
             // line 201
             echo "    ";
-            $context["__internal_89ee91f8f3498574430b3afbe6237a173486ced65cbbcc66977e919d4bd941b2"] = $this;
+            $context["__internal_ceb17a6f1f7b89564c2fd70b2ce075d576945b21ff1c37d689a424297c59b377"] = $this;
             // line 202
             echo "
     ";
@@ -720,7 +734,7 @@ $context["attrname"] == "checked")) {
                 echo "</span>
             \t<input";
                 // line 213
-                echo $context["__internal_89ee91f8f3498574430b3afbe6237a173486ced65cbbcc66977e919d4bd941b2"]->getattr((isset($context["attr_upload"]) ? $context["attr_upload"] : null));
+                echo $context["__internal_ceb17a6f1f7b89564c2fd70b2ce075d576945b21ff1c37d689a424297c59b377"]->getattr((isset($context["attr_upload"]) ? $context["attr_upload"] : null));
                 echo ">
         \t</span>
         ";
@@ -737,7 +751,7 @@ $context["attrname"] == "checked")) {
                 $context["attr_upload"] = twig_array_merge((isset($context["attr_upload"]) ? $context["attr_upload"] : null), array("type" => "hidden"));
                 // line 220
                 echo "                <input";
-                echo $context["__internal_89ee91f8f3498574430b3afbe6237a173486ced65cbbcc66977e919d4bd941b2"]->getattr((isset($context["attr_upload"]) ? $context["attr_upload"] : null));
+                echo $context["__internal_ceb17a6f1f7b89564c2fd70b2ce075d576945b21ff1c37d689a424297c59b377"]->getattr((isset($context["attr_upload"]) ? $context["attr_upload"] : null));
                 echo ">
             </button>
         ";
@@ -836,6 +850,6 @@ $context["attrname"] == "checked")) {
 
     public function getDebugInfo()
     {
-        return array (  815 => 251,  810 => 248,  798 => 244,  792 => 243,  789 => 242,  786 => 241,  782 => 240,  778 => 239,  771 => 235,  766 => 232,  763 => 231,  757 => 227,  749 => 225,  746 => 223,  739 => 220,  736 => 219,  732 => 217,  729 => 216,  723 => 213,  719 => 212,  715 => 210,  712 => 209,  707 => 205,  704 => 204,  702 => 203,  699 => 202,  696 => 201,  681 => 200,  662 => 189,  659 => 188,  648 => 187,  633 => 176,  627 => 174,  625 => 173,  621 => 172,  611 => 165,  608 => 164,  606 => 160,  605 => 159,  604 => 158,  603 => 156,  600 => 155,  598 => 153,  597 => 152,  596 => 151,  595 => 150,  594 => 149,  593 => 147,  590 => 146,  588 => 144,  587 => 141,  586 => 140,  585 => 139,  584 => 138,  581 => 137,  579 => 136,  576 => 135,  573 => 134,  562 => 133,  547 => 114,  543 => 113,  537 => 111,  534 => 110,  523 => 109,  508 => 106,  505 => 105,  502 => 104,  499 => 103,  488 => 102,  472 => 95,  468 => 94,  464 => 92,  460 => 90,  454 => 88,  452 => 87,  449 => 86,  447 => 85,  441 => 83,  426 => 82,  411 => 77,  404 => 75,  397 => 74,  394 => 73,  391 => 72,  377 => 71,  362 => 65,  357 => 63,  352 => 61,  349 => 60,  342 => 59,  339 => 58,  326 => 57,  314 => 53,  308 => 52,  305 => 51,  297 => 49,  291 => 47,  288 => 46,  283 => 45,  281 => 44,  276 => 43,  274 => 42,  269 => 41,  267 => 40,  260 => 39,  258 => 38,  251 => 37,  248 => 36,  246 => 35,  241 => 34,  238 => 33,  233 => 32,  230 => 31,  219 => 30,  205 => 26,  194 => 25,  167 => 22,  153 => 18,  150 => 17,  147 => 16,  135 => 15,  122 => 12,  120 => 11,  116 => 10,  102 => 9,  89 => 6,  87 => 5,  83 => 4,  71 => 3,  59 => 192,  56 => 181,  53 => 118,  50 => 108,  46 => 100,  43 => 81,  40 => 69,  37 => 55,  34 => 28,  31 => 23,  28 => 20,  25 => 14,  22 => 8,  19 => 2,);
+        return array (  829 => 251,  824 => 248,  812 => 244,  806 => 243,  803 => 242,  800 => 241,  796 => 240,  792 => 239,  785 => 235,  780 => 232,  777 => 231,  771 => 227,  763 => 225,  760 => 223,  753 => 220,  750 => 219,  746 => 217,  743 => 216,  737 => 213,  733 => 212,  729 => 210,  726 => 209,  721 => 205,  718 => 204,  716 => 203,  713 => 202,  710 => 201,  694 => 200,  675 => 189,  672 => 188,  660 => 187,  645 => 176,  639 => 174,  637 => 173,  633 => 172,  623 => 165,  620 => 164,  618 => 160,  617 => 159,  616 => 158,  615 => 156,  612 => 155,  610 => 153,  609 => 152,  608 => 151,  607 => 150,  606 => 149,  605 => 147,  602 => 146,  600 => 144,  599 => 141,  598 => 140,  597 => 139,  596 => 138,  593 => 137,  591 => 136,  588 => 135,  585 => 134,  573 => 133,  558 => 114,  554 => 113,  548 => 111,  545 => 110,  533 => 109,  518 => 106,  515 => 105,  512 => 104,  509 => 103,  497 => 102,  481 => 95,  477 => 94,  473 => 92,  469 => 90,  463 => 88,  461 => 87,  458 => 86,  456 => 85,  450 => 83,  434 => 82,  419 => 77,  412 => 75,  405 => 74,  402 => 73,  399 => 72,  384 => 71,  369 => 65,  364 => 63,  359 => 61,  356 => 60,  349 => 59,  346 => 58,  332 => 57,  320 => 53,  314 => 52,  311 => 51,  303 => 49,  297 => 47,  294 => 46,  289 => 45,  287 => 44,  282 => 43,  280 => 42,  275 => 41,  273 => 40,  266 => 39,  264 => 38,  257 => 37,  254 => 36,  252 => 35,  247 => 34,  244 => 33,  239 => 32,  236 => 31,  224 => 30,  210 => 26,  198 => 25,  170 => 22,  156 => 18,  153 => 17,  150 => 16,  137 => 15,  124 => 12,  122 => 11,  118 => 10,  103 => 9,  90 => 6,  88 => 5,  84 => 4,  71 => 3,  59 => 192,  56 => 181,  53 => 118,  50 => 108,  46 => 100,  43 => 81,  40 => 69,  37 => 55,  34 => 28,  31 => 23,  28 => 20,  25 => 14,  22 => 8,  19 => 2,);
     }
 }

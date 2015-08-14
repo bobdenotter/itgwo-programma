@@ -23,6 +23,7 @@ class __TwigTemplate_69b5fa20162b77c9fabc967b9d07f73730b2b967805dd1b0ccb40b22c64
         $context = $this->env->mergeGlobals(array(
             "headline" => $__headline__,
             "list" => $__list__,
+            "varargs" => func_num_args() > 2 ? array_slice(func_get_args(), 2) : array(),
         ));
 
         $blocks = array();
@@ -77,6 +78,6 @@ class __TwigTemplate_69b5fa20162b77c9fabc967b9d07f73730b2b967805dd1b0ccb40b22c64
 
     public function getDebugInfo()
     {
-        return array (  56 => 9,  47 => 7,  43 => 6,  36 => 3,  33 => 2,  21 => 1,);
+        return array (  57 => 9,  48 => 7,  44 => 6,  37 => 3,  34 => 2,  21 => 1,);
     }
 }
