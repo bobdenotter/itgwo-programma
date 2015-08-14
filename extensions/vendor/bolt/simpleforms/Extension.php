@@ -115,7 +115,7 @@ class Extension extends \Bolt\BaseExtension
         else {
             // this should never happen
             // initializing a field without a form is way out of spec
-            $this->app['log']->add('Attempting to set a form field without a form', 3);
+            $this->app['logger.system']->info("Attempting to set a form field without a form", array('event' => 'extensions'));
             $formconfig = $this->config;
         }
         
@@ -392,6 +392,7 @@ class Extension extends \Bolt\BaseExtension
             }
         }
 
+        $use_ssl = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off');
         $formhtml = $this->app['render']->render($formconfig['template'], array(
             "submit" => "Send",
             "form" => $form->createView(),
@@ -399,7 +400,7 @@ class Extension extends \Bolt\BaseExtension
             "error" => $error,
             "sent" => $sent,
             "formname" => $formname,
-            "recaptcha_html" => ($this->config['recaptcha_enabled'] ? recaptcha_get_html($this->config['recaptcha_public_key']) : ''),
+            "recaptcha_html" => ($this->config['recaptcha_enabled'] ? recaptcha_get_html($this->config['recaptcha_public_key'], null, $use_ssl) : ''),
             "recaptcha_theme" => ($this->config['recaptcha_enabled'] ? $this->config['recaptcha_theme'] : ''),
             "button_text" => $formconfig['button_text']
         ));
@@ -499,7 +500,7 @@ class Extension extends \Bolt\BaseExtension
                             $data[$key][$k] = $options[$v];
                         }
                     }
-                } elseif(isset($options[$value]) && $options[$value] != $value) {
+                } elseif(isset($options[$value]) && $options[$value] !== $value) {
                     $data[$key] = $options[$value];
                 }
 
@@ -625,7 +626,8 @@ class Extension extends \Bolt\BaseExtension
                     dump($data);
                     dump($e);
                 }
-                $this->app['log']->add("SimpleForms could not insert data into table". $formconfig['insert_into_table'] . ' ('.join(', ', $keys).') - check if the table exists.', 3);
+                $errortxt = $formconfig['insert_into_table'] . ' ('.join(', ', $keys).')';
+                $this->app['logger.system']->info("SimpleForms could not insert data into table: {$errortxt} - check if the table exists", array('event' => 'extensions'));
                 // echo '<div class="fatal-error">' .$inserterror . '</div>';
             }
         }
@@ -663,13 +665,13 @@ class Extension extends \Bolt\BaseExtension
         // set the default recipient for this form
         if (!empty($formconfig['recipient_email'])) {
             $message->setTo(array($formconfig['recipient_email'] => $formconfig['recipient_name']));
-            $this->app['log']->add('Set Recipient for '. $formname . ' to '. $formconfig['recipient_email'], 3);
+            $this->app['logger.system']->info('Set Recipient for '. $formname . ' to '. $formconfig['recipient_email'], array('event' => 'extensions'));
         }
 
         // set the default sender for this form
         if (!empty($formconfig['from_email'])) {
             $message->setFrom(array($formconfig['from_email'] => $formconfig['from_name']));
-            $this->app['log']->add('Set Sender for '. $formname . ' to '. $formconfig['from_email'], 3);
+            $this->app['logger.system']->info('Set Sender for '. $formname . ' to '. $formconfig['from_email'], array('event' => 'extensions'));
         }
 
         // add attachments if enabled in config
@@ -686,21 +688,21 @@ class Extension extends \Bolt\BaseExtension
 
             // do not add other cc and bcc addresses in testmode
             if(!empty($formconfig['recipient_cc_email']) && $formconfig['recipient_email']!=$formconfig['recipient_cc_email']) {
-                $this->app['log']->add('Did not set Cc for '. $formname . ' to '. $formconfig['recipient_cc_email'] . ' (in testmode)', 3);
+                $this->app['logger.system']->info('Did not set Cc for '. $formname . ' to '. $formconfig['recipient_cc_email'] . ' (in testmode)', array('event' => 'extensions'));
             }
             if(!empty($formconfig['recipient_bcc_email']) && $formconfig['recipient_email']!=$formconfig['recipient_bcc_email']) {
-                $this->app['log']->add('Did not set Bcc for '. $formname . ' to '. $formconfig['recipient_bcc_email'] . ' (in testmode)', 3);
+                $this->app['logger.system']->info('Did not set Bcc for '. $formname . ' to '. $formconfig['recipient_bcc_email'] . ' (in testmode)', array('event' => 'extensions'));
             }
         }
         else {
             // only add other recipients when not in testmode
             if(!empty($formconfig['recipient_cc_email']) && $formconfig['recipient_email']!=$formconfig['recipient_cc_email']) {
                 $message->setCc($formconfig['recipient_cc_email']);
-                $this->app['log']->add('Added Cc for '. $formname . ' to '. $formconfig['recipient_cc_email'], 3);
+                $this->app['logger.system']->info('Added Cc for '. $formname . ' to '. $formconfig['recipient_cc_email'], array('event' => 'extensions'));
             }
             if(!empty($formconfig['recipient_bcc_email']) && $formconfig['recipient_email']!=$formconfig['recipient_bcc_email']) {
                 $message->setBcc($formconfig['recipient_bcc_email']);
-                $this->app['log']->add('Added Bcc for '. $formname . ' to '. $formconfig['recipient_bcc_email'], 3);
+                $this->app['logger.system']->info('Added Bcc for '. $formname . ' to '. $formconfig['recipient_bcc_email'], array('event' => 'extensions'));
             }
 
             // check for other email addresses to be added
@@ -708,7 +710,7 @@ class Extension extends \Bolt\BaseExtension
                 if (in_array($values['use_as'], array('to_email', 'from_email', 'cc_email', 'bcc_email'))) {
                     $tmp_email = false;
 
-                    if($values['type']=="email") {
+                    if($values['type']=="email" || $values['type']=="hidden") {
                         $tmp_email = $data[$key];
 
                         if(isset($values['use_with'])) {
@@ -777,19 +779,17 @@ class Extension extends \Bolt\BaseExtension
         }
 
         // log the attempt
-        $this->app['log']->add('Sending message '. $formname
-                               . ' from '. $formconfig['from_email']
-                               . ' to '. $formconfig['recipient_email'], 3);
+        $this->app['logger.system']->info('Sending message '. $formname . ' from '. $formconfig['from_email'] . ' to '. $formconfig['recipient_email'], array('event' => 'extensions'));
 
         $res = $this->app['mailer']->send($message);
 
         // log the result of the attempt
         if ($res) {
             if($formconfig['testmode']) {
-                $this->app['log']->add('Sent email from ' . $formname . ' to '. $formconfig['testmode_recipient'] . ' (in testmode) - ' . $formconfig['recipient_name'], 3);
+                $this->app['logger.system']->info('Sent email from ' . $formname . ' to '. $formconfig['testmode_recipient'] . ' (in testmode) - ' . $formconfig['recipient_name'], array('event' => 'extensions'));
             }
             else {
-                $this->app['log']->add('Sent email from ' . $formname . ' to '. $formconfig['recipient_email'] . ' - ' . $formconfig['recipient_name'], 3);
+                $this->app['logger.system']->info('Sent email from ' . $formname . ' to '. $formconfig['recipient_email'] . ' - ' . $formconfig['recipient_name'], array('event' => 'extensions'));
             }
         }
 
@@ -869,7 +869,7 @@ class Extension extends \Bolt\BaseExtension
 
             } catch (\Doctrine\DBAL\DBALException $e) {
                 // Oops. User will get a warning on the dashboard about tables that need to be repaired.
-                $this->app['log']->add("SimpleForms could not fetch next sequence number from table". $formconfig['insert_into_table'] . ' - check if the table exists.', 3);
+                $this->app['logger.system']->info("SimpleForms could not fetch next sequence number from table". $formconfig['insert_into_table'] . ' - check if the table exists.', array('event' => 'extensions'));
                 echo "Couldn't fetch next sequence number from table " . $formconfig['insert_into_table'] . ".";
             }
         }

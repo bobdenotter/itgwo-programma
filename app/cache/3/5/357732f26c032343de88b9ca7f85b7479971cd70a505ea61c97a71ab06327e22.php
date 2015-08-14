@@ -24,7 +24,7 @@ class __TwigTemplate_357732f26c032343de88b9ca7f85b7479971cd70a505ea61c97a71ab063
     protected function doDisplay(array $context, array $blocks = array())
     {
         // line 5
-        $context["__internal_e72c96b85d0f58965893820a034e5075ab08d8df5709d4fdc98578355d2813b2"] = $this->loadTemplate("dbcheck/_macros.twig", "dbcheck/dbcheck.twig", 5);
+        $context["__internal_a69a924f9a423349986b279a24fe2cb7a3887201e98e801b0a12c4380a3ffb34"] = $this->loadTemplate("dbcheck/_macros.twig", "dbcheck/dbcheck.twig", 5);
         // line 3
         $this->parent->display($context, array_merge($this->blocks, $blocks));
     }
@@ -60,11 +60,11 @@ class __TwigTemplate_357732f26c032343de88b9ca7f85b7479971cd70a505ea61c97a71ab063
             echo "
                 ";
             // line 19
-            echo $context["__internal_e72c96b85d0f58965893820a034e5075ab08d8df5709d4fdc98578355d2813b2"]->getlist($this->env->getExtension('Bolt')->trans("Modifications made to the database:"), $this->getAttribute((isset($context["context"]) ? $context["context"] : null), "modifications_made", array()));
+            echo $context["__internal_a69a924f9a423349986b279a24fe2cb7a3887201e98e801b0a12c4380a3ffb34"]->getlist($this->env->getExtension('Bolt')->trans("Modifications made to the database:"), $this->getAttribute((isset($context["context"]) ? $context["context"] : null), "modifications_made", array()));
             echo "
                 ";
             // line 20
-            echo $context["__internal_e72c96b85d0f58965893820a034e5075ab08d8df5709d4fdc98578355d2813b2"]->getlist($this->env->getExtension('Bolt')->trans("Hints:"), (isset($context["hints"]) ? $context["hints"] : null));
+            echo $context["__internal_a69a924f9a423349986b279a24fe2cb7a3887201e98e801b0a12c4380a3ffb34"]->getlist($this->env->getExtension('Bolt')->trans("Hints:"), (isset($context["hints"]) ? $context["hints"] : null));
             echo "
 
                 <p class=\"alert alert-success\" role=\"alert\">";
@@ -89,11 +89,11 @@ class __TwigTemplate_357732f26c032343de88b9ca7f85b7479971cd70a505ea61c97a71ab063
             echo "
                 ";
             // line 30
-            echo $context["__internal_e72c96b85d0f58965893820a034e5075ab08d8df5709d4fdc98578355d2813b2"]->getlist($this->env->getExtension('Bolt')->trans("Modifications needed:"), $this->getAttribute((isset($context["context"]) ? $context["context"] : null), "modifications_required", array()));
+            echo $context["__internal_a69a924f9a423349986b279a24fe2cb7a3887201e98e801b0a12c4380a3ffb34"]->getlist($this->env->getExtension('Bolt')->trans("Modifications needed:"), $this->getAttribute((isset($context["context"]) ? $context["context"] : null), "modifications_required", array()));
             echo "
                 ";
             // line 31
-            echo $context["__internal_e72c96b85d0f58965893820a034e5075ab08d8df5709d4fdc98578355d2813b2"]->getlist($this->env->getExtension('Bolt')->trans("Hints:"), (isset($context["hints"]) ? $context["hints"] : null));
+            echo $context["__internal_a69a924f9a423349986b279a24fe2cb7a3887201e98e801b0a12c4380a3ffb34"]->getlist($this->env->getExtension('Bolt')->trans("Hints:"), (isset($context["hints"]) ? $context["hints"] : null));
             echo "
 
                 <form action=\"";
@@ -117,7 +117,7 @@ class __TwigTemplate_357732f26c032343de88b9ca7f85b7479971cd70a505ea61c97a71ab063
 
                 ";
             // line 41
-            echo $context["__internal_e72c96b85d0f58965893820a034e5075ab08d8df5709d4fdc98578355d2813b2"]->getlist($this->env->getExtension('Bolt')->trans("Hints:"), (isset($context["hints"]) ? $context["hints"] : null));
+            echo $context["__internal_a69a924f9a423349986b279a24fe2cb7a3887201e98e801b0a12c4380a3ffb34"]->getlist($this->env->getExtension('Bolt')->trans("Hints:"), (isset($context["hints"]) ? $context["hints"] : null));
             echo "
 
                 ";

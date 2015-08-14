@@ -1,23 +1,23 @@
 [
     {
         "name": "bolt/simpleforms",
-        "version": "1.3",
-        "version_normalized": "1.3.0.0",
+        "version": "1.5",
+        "version_normalized": "1.5.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/jadwigo/SimpleForms.git",
-            "reference": "2e0e1ce0cae1447d92ec79626af00fc027c584d2"
+            "reference": "d079f92dd4c8b4d89c74a7a23ce096b2fb570cc9"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jadwigo/SimpleForms/zipball/2e0e1ce0cae1447d92ec79626af00fc027c584d2",
-            "reference": "2e0e1ce0cae1447d92ec79626af00fc027c584d2",
+            "url": "https://api.github.com/repos/jadwigo/SimpleForms/zipball/d079f92dd4c8b4d89c74a7a23ce096b2fb570cc9",
+            "reference": "d079f92dd4c8b4d89c74a7a23ce096b2fb570cc9",
             "shasum": ""
         },
         "require": {
             "bolt/bolt": ">=2.0.0,<3.0.0"
         },
-        "time": "2015-04-30 15:26:29",
+        "time": "2015-08-05 16:20:15",
         "type": "bolt-extension",
         "extra": {
             "branch-alias": {
@@ -48,7 +48,7 @@
             "upload"
         ],
         "support": {
-            "source": "https://github.com/jadwigo/SimpleForms/tree/1.3",
+            "source": "https://github.com/jadwigo/SimpleForms/tree/1.5",
             "issues": "https://github.com/jadwigo/SimpleForms/issues"
         }
     }
