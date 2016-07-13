@@ -1,31 +1,18 @@
 # Bolt specific stuff. Don't put config files, databases or 'vendor' in Git.
 app/cache/*
-app/config/*.yml
-app/config/extensions/
+app/config/config_local.yml
 app/database/*
-*config.yml
 files/*
 extensions/*
 thumbs/
 vendor/
 phpunit.xml
-theme/*
-!theme/base-*
-!theme/default
 
 # Unless you want to store vendor's "state" in your Git repo.
 composer.phar
-composer.lock
 
 # Files related to testing
-tests/codeception/_output
-tests/codeception/_support/*Tester.php
-tests/codeception/_support/_generated/
-tests/codeception/acceptance/AcceptanceTester.php
-tests/codeception/functional/FunctionalTester.php
-tests/codeception/unit/UnitTester.php
-*.codeception-backup
-tests/phpunit/web-root/
+tests/
 
 # NPM, Gulp and Grunt stuff
 node_modules
@@ -55,7 +42,6 @@ Vagrantfile
 .*.swp
 .swp
 *.lock
-.gitignore
 .buildpath
 .project
 /bolt.log
