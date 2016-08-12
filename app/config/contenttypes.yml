@@ -171,12 +171,13 @@ programmaonderdelen:
             type: html
             height: 150px
             label: Bandtekstje
-            group: Tekst
         url:
             type: text
             variant: inline
             label: website van dit programmaonderdeel
-            group: Tekst
+        favorites:
+            type: text
+            variant: inline
         image:
             type: image
             label: Afbeelding
@@ -337,3 +338,21 @@ pagina:
     record_template: record.twig
     listing_template: listing.twig
     show_on_dashboard: false
+
+favorites:
+    name: Favorites
+    singular_name: Favorite
+    fields:
+        identifier:
+            type: text
+        slug:
+            type: slug
+            uses: identifier
+        favorites:
+            type: textarea
+    show_on_dashboard: false
+    show_in_menu: false
+    default_status: published
+
+
+
