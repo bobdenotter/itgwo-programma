@@ -19,6 +19,13 @@ Options -Indexes
   </IfModule>
 </FilesMatch>
 
+<IfModule mod_headers.c>    
+    # 2016-07-22
+    # Make the json available to external domains
+    # TODO: make this specific for itgwo.nl
+    Header set Access-Control-Allow-Origin *
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
