@@ -80,7 +80,7 @@ class UpdateFavsExtension extends SimpleExtension
         $agg_favorites = [];
 
         foreach($records as $record) {
-            echo $record->get('favorites') . "<br>";
+            // echo $record->get('favorites') . "<br>";
             $favs = split(',', $record->get('favorites'));
             foreach($favs as $fav) {
                 if (is_numeric($fav)) {
