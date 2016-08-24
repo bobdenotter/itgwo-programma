@@ -73,10 +73,11 @@ berichten:
             label: Spotify url (http link)
             group: Media
         embed:
-            type: text
+            type: textarea
             variant: inline
-            label: Ruimte voor een embedcode (bijv. Soundcloud of Bandcamp)
+            label: Ruimte voor een embedcode (bijv. Soundcloud)
             group: Media
+            height: 40px
     # relations:
     #     media:
     #         multiple: true
@@ -130,9 +131,6 @@ programma:
             type: html
             height: 300px
         spotifylist:
-            type: text
-            class: large
-        deezerlist:
             type: text
             class: large
         blokkenschema:
@@ -353,6 +351,3 @@ favorites:
     show_on_dashboard: false
     show_in_menu: false
     default_status: published
-
-
-

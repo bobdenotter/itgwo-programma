@@ -80,9 +80,12 @@ class UpdateFavsExtension extends SimpleExtension
         $agg_favorites = [];
 
         foreach($records as $record) {
+            echo $record->get('favorites') . "<br>";
             $favs = split(',', $record->get('favorites'));
             foreach($favs as $fav) {
-                $agg_favorites[ trim($fav) ]++;
+                if (is_numeric($fav)) {
+                    $agg_favorites[ trim($fav) ]++;
+                }
             }
         }
 
@@ -110,7 +113,6 @@ class UpdateFavsExtension extends SimpleExtension
             printf("%s - %s<br>", $record->get('name'), $score);
 
         }
-
 
         return "<br>ok";
 
